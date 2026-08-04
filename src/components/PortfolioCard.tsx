@@ -26,7 +26,7 @@ export default function PortfolioCard({ item, index, onSelect }: PortfolioCardPr
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1 * index, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => onSelect(item)}
-      className="group relative w-full h-[360px] sm:h-[420px] md:h-full rounded-sm overflow-hidden cursor-pointer bg-neutral-900 flex flex-col justify-end shadow-md transition-all duration-500 hover:shadow-2xl"
+      className="group relative w-full h-[320px] sm:h-[400px] md:h-full rounded-sm overflow-hidden cursor-pointer bg-neutral-900 flex flex-col justify-end shadow-md transition-all duration-500 hover:shadow-2xl"
     >
       {/* Background Image with Hover Scale */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
@@ -49,10 +49,10 @@ export default function PortfolioCard({ item, index, onSelect }: PortfolioCardPr
         </span>
       </div>
 
-      {/* Card Category Text Overlay (Fluid font size based on screen height, capped at current max size) */}
+      {/* Card Category Text Overlay (Mobile Optimized, Desktop Capped at Current Size) */}
       <div className="relative z-10 p-2 sm:p-3 md:p-3 text-center flex flex-col items-center justify-end w-full overflow-hidden">
-        <div className="w-full flex items-center justify-center h-10 sm:h-12">
-          <h3 className="font-condensed-custom text-[clamp(1.5rem,3.8vh,38px)] leading-none uppercase text-white tracking-tighter select-none whitespace-nowrap transition-transform duration-300 group-hover:scale-105">
+        <div className="w-full flex items-center justify-center h-9 sm:h-12">
+          <h3 className="font-condensed-custom text-2xl sm:text-3xl md:text-[clamp(1.5rem,3.8vh,38px)] leading-none uppercase text-white tracking-tighter select-none whitespace-nowrap transition-transform duration-300 group-hover:scale-105">
             {item.title}
           </h3>
         </div>
