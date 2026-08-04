@@ -24,20 +24,20 @@ export default function Header({ onContactClick }: HeaderProps) {
         </button>
       </div>
 
-      {/* Center Column: Main Editorial Headline (Optimized for Mobile, Desktop UNCHANGED) */}
+      {/* Center Column: Main Editorial Headline (Full Mobile Width via 13.5vw, Desktop UNCHANGED) */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="flex-1 max-w-5xl md:px-2 lg:px-4"
+        className="flex-1 w-full max-w-5xl md:px-2 lg:px-4"
       >
-        <div className="font-serif-custom text-[38px] sm:text-6xl md:text-[clamp(2.75rem,15.5vh,185px)] leading-[0.92] md:leading-[0.86] tracking-tight text-neutral-950 select-none">
+        <div className="font-serif-custom text-[13.5vw] sm:text-[11vw] md:text-[clamp(2.75rem,15.5vh,185px)] leading-[0.89] md:leading-[0.86] tracking-tight text-neutral-950 select-none w-full">
           {/* Line 1: One Studio. -> */}
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-wrap">
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-wrap w-full">
             <span>One Studio.</span>
             {/* Horizontal Arrow -> */}
             <svg
-              className="w-10 h-5 sm:w-14 sm:h-7 md:w-auto md:h-[clamp(1.75rem,5vh,3.75rem)] text-neutral-900 stroke-[1.1] inline-block align-middle mt-1"
+              className="w-12 h-6 sm:w-16 sm:h-8 md:w-auto md:h-[clamp(1.75rem,5vh,3.75rem)] text-neutral-900 stroke-[1.1] inline-block align-middle mt-1 shrink-0"
               viewBox="0 0 100 30"
               fill="none"
               stroke="currentColor"
@@ -61,7 +61,7 @@ export default function Header({ onContactClick }: HeaderProps) {
         </div>
       </motion.div>
 
-      {/* Right Column: Desktop Work with us Button (Hidden on mobile to avoid duplicate) */}
+      {/* Right Column: Desktop Work with us Button */}
       <div className="hidden md:block shrink-0 pt-2 self-start">
         <button
           onClick={onContactClick}
