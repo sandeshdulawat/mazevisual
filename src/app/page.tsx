@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
-import StackedCardsSection from "@/components/StackedCardsSection";
 import ServicesAccordion from "@/components/ServicesAccordion";
 import BentoGridShowcase from "@/components/BentoGridShowcase";
 import ContactDrawer from "@/components/ContactDrawer";
@@ -19,9 +18,6 @@ export default function Home() {
 
       {/* Studio Overview & Pillars */}
       <AboutSection />
-
-      {/* Modern Agency Vertical Stacked Cards Scroll Section */}
-      <StackedCardsSection />
 
       {/* Services Accordion List */}
       <ServicesAccordion onStartProject={() => setIsContactOpen(true)} />
