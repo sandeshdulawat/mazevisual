@@ -43,9 +43,9 @@ export default function AboutSection() {
       color: "#e5e5e5",
       stagger: 0.1,
     })
-    // This empty tween adds a "hold" at the end of the animation
-    // so the text stays fully highlighted for a moment before unpinning!
-    .to({}, { duration: 0.5 });
+      // This empty tween adds a "hold" at the end of the animation
+      // so the text stays fully highlighted for a moment before unpinning!
+      .to({}, { duration: 0.5 });
 
   }, { scope: containerRef });
 
@@ -82,7 +82,7 @@ export default function AboutSection() {
 
       {/* Main Text */}
       <div className="relative z-10 max-w-7xl text-center mb-32">
-        <p className="font-cormorant text-3xl md:text-5xl lg:text-6xl text-[#444] leading-[1.1] font-normal tracking-wide">
+        <p className="font-cormorant text-3xl md:text-5xl lg:text-6xl text-[#444] leading-[1.1] font-normal">
           <span className="reveal-word">We</span> <span className="reveal-word">craft</span> <span className="reveal-word">brand</span> <span className="reveal-word">identities,</span> <span className="reveal-word">narratives,</span> <span className="reveal-word">and</span> <span className="reveal-word">digital</span><br className="hidden md:block" />
           <span className="reveal-word">experiences</span> <span className="reveal-word">that</span> <span className="reveal-word">keep</span> <span className="reveal-word">up</span> <span className="reveal-word">with</span> <span className="reveal-word">your</span> <span className="reveal-word">ambition.</span><br className="hidden md:block" />
           <span className="reveal-word">So</span> <span className="reveal-word">you</span> <span className="reveal-word">can</span> <span className="reveal-word">focus</span> <span className="reveal-word">on</span> <span className="reveal-word">building</span> <span className="reveal-word">what</span> <span className="reveal-word">matters,</span><br className="hidden md:block" />
