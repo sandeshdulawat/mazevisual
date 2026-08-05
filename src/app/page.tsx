@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
-import ServicesAccordion from "@/components/ServicesAccordion";
-import BentoGridShowcase from "@/components/BentoGridShowcase";
+import ServicesList from "@/components/ServicesList";
 import ContactDrawer from "@/components/ContactDrawer";
 import Footer from "@/components/Footer";
 
@@ -12,18 +11,17 @@ export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-white text-neutral-900 flex flex-col justify-between selection:bg-neutral-900 selection:text-white">
+    <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black block">
       {/* Device Height Hero Section */}
       <Hero />
 
-      {/* Studio Overview & Pillars */}
+      {/* Studio Overview */}
       <AboutSection />
 
-      {/* Services Accordion List */}
-      <ServicesAccordion onStartProject={() => setIsContactOpen(true)} />
-
-      {/* Bento Grid Showcase Section */}
-      <BentoGridShowcase onLearnMore={() => setIsContactOpen(true)} />
+      {/* What We Do (Services List) */}
+      <section className="w-full bg-black">
+        <ServicesList />
+      </section>
 
       {/* Studio Footer */}
       <Footer />

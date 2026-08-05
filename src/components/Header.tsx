@@ -1,75 +1,78 @@
 "use client";
 
-import React from "react";
-import Logo from "./Logo";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface HeaderProps {
   onContactClick?: () => void;
 }
 
 export default function Header({ onContactClick }: HeaderProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+
+    // Check initially
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="w-full pt-3 md:pt-4 pb-3 md:pb-5 flex flex-col md:flex-row items-start justify-between gap-4 md:gap-8">
-      {/* Left Column: Logo (Mobile Top Bar with CTA button) */}
-      <div className="w-full md:w-auto flex items-center justify-between md:justify-start shrink-0 pt-1 md:pt-2">
-        <Logo />
-        
-        {/* Mobile CTA Button (Visible on small screens) */}
-        <button
-          onClick={onContactClick}
-          className="md:hidden rounded-full border border-neutral-900 px-4 py-1.5 text-xs font-normal text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all duration-300 active:scale-95 shadow-xs whitespace-nowrap"
-        >
-          Work with us
-        </button>
-      </div>
-
-      {/* Center Column: Main Editorial Headline (Full Mobile Width via 13.5vw, Desktop UNCHANGED) */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="flex-1 w-full max-w-5xl md:px-2 lg:px-4"
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`w-full flex justify-center px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "pt-6" : "pt-6"
+        }`}
+    >
+      <div
+        className={`w-full flex items-center justify-between transition-all duration-500 ease-out bg-black/20 backdrop-blur-xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] py-3 rounded-lg ${isScrolled
+          ? "max-w-[750px] px-6"
+          : "max-w-7xl px-6 md:px-8"
+          }`}
       >
-        <div className="font-serif-custom text-[13.5vw] sm:text-[11vw] md:text-[clamp(2.75rem,15.5vh,185px)] leading-[0.89] md:leading-[0.86] tracking-tight text-neutral-950 select-none w-full">
-          {/* Line 1: One Studio. -> */}
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-wrap w-full">
-            <span>One Studio.</span>
-            {/* Horizontal Arrow -> */}
-            <svg
-              className="w-12 h-6 sm:w-16 sm:h-8 md:w-auto md:h-[clamp(1.75rem,5vh,3.75rem)] text-neutral-900 stroke-[1.1] inline-block align-middle mt-1 shrink-0"
-              viewBox="0 0 100 30"
-              fill="none"
-              stroke="currentColor"
-            >
-              <line x1="0" y1="15" x2="86" y2="15" strokeLinecap="round" />
-              <polyline
-                points="74,5 88,15 74,25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          {/* Line 2: Endless */}
-          <div>Endless</div>
-
-          {/* Line 3: Possibilities. */}
-          <div className="font-bold italic text-neutral-950 font-serif-custom">
-            Possibilities.
-          </div>
+        {/* Left Column: Logo */}
+        <div className="flex items-center shrink-0 w-[140px]">
+          <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap">
+            Maze Visual
+          </span>
         </div>
-      </motion.div>
 
-      {/* Right Column: Desktop Work with us Button */}
-      <div className="hidden md:block shrink-0 pt-2 self-start">
-        <button
-          onClick={onContactClick}
-          className="rounded-full border border-neutral-900 px-6 py-2.5 text-sm md:text-base font-normal text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all duration-300 active:scale-95 shadow-xs whitespace-nowrap"
-        >
-          Work with us
-        </button>
+        {/* Center Column: Links (Hidden on small screens) */}
+        <nav className={`hidden md:flex flex-1 items-center justify-center transition-all duration-500 ${isScrolled ? "gap-5" : "gap-8 lg:gap-10"} text-white/80 text-[13px] font-inter-tight tracking-wide`}>
+          <Link href="#home" className="hover:text-white transition-colors">
+            Home
+          </Link>
+          <Link href="#services" className="hover:text-white transition-colors">
+            Services
+          </Link>
+          <Link href="#work" className="hover:text-white transition-colors">
+            Work
+          </Link>
+          <Link href="#studio" className="hover:text-white transition-colors">
+            Studio
+          </Link>
+          <Link href="#insights" className="hover:text-white transition-colors">
+            Insights
+          </Link>
+        </nav>
+
+        {/* Right Column: CTA Button */}
+        <div className="flex items-center justify-end shrink-0 w-[140px]">
+          <button
+            onClick={onContactClick}
+            className="rounded-lg bg-white/95 text-black px-4 py-2 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
+          >
+            Contact
+          </button>
+        </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

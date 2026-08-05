@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   description: "MazeVisual is a premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
 };
 
+import SmoothScrolling from "@/components/SmoothScrolling";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,7 +37,9 @@ export default function RootLayout({
       className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-black selection:text-white">
-        {children}
+        <SmoothScrolling>
+          {children}
+        </SmoothScrolling>
       </body>
     </html>
   );

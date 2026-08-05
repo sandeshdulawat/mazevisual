@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-
 :root {
   --background: #ffffff;
   --foreground: #111111;
@@ -42,4 +42,23 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
+}
+
+.font-inter-tight {
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 25s linear infinite;
+  display: flex;
+  width: max-content;
 }
