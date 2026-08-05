@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Sparkles, CheckCircle } from "lucide-react";
 
@@ -11,6 +12,7 @@ interface ContactDrawerProps {
 
 export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -18,6 +20,10 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     budget: "$10k - $25k",
     message: "",
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +34,12 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     }, 2500);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end">
+        <div className="fixed inset-0 flex justify-end" style={{ zIndex: 9999 }}>
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -139,11 +147,10 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                           type="button"
                           key={b}
                           onClick={() => setForm({ ...form, budget: b })}
-                          className={`py-2 text-xs rounded-md border font-medium transition-colors ${
-                            form.budget === b
+                          className={`py-2 text-xs rounded-md border font-medium transition-colors ${form.budget === b
                               ? "bg-neutral-900 text-white border-neutral-900"
                               : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
-                          }`}
+                            }`}
                         >
                           {b}
                         </button>
@@ -181,6 +188,7 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
