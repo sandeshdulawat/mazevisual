@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Hero from "@/components/Hero";
+import FeaturedWork from "@/components/FeaturedWork";
 import AboutSection from "@/components/AboutSection";
 import ServicesList from "@/components/ServicesList";
 import ContactDrawer from "@/components/ContactDrawer";
@@ -22,6 +23,9 @@ export default function Home() {
       <section className="w-full bg-black">
         <ServicesList />
       </section>
+
+      {/* Scroll-driven Featured Work */}
+      <FeaturedWork />
 
       {/* Studio Footer */}
       <Footer />

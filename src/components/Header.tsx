@@ -25,9 +25,9 @@ export default function Header({ onContactClick }: HeaderProps) {
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
       className={`w-full flex justify-center px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "pt-6" : "pt-6"
         }`}
     >

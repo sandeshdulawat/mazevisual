@@ -20,8 +20,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MazeVisual — One Studio. Endless Possibilities.",
-  description: "MazeVisual is a premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
+  title: "Maze Visual — One Studio. Endless Possibilities.",
+  description: "Maze Visual is a premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
 };
 
 import SmoothScrolling from "@/components/SmoothScrolling";
