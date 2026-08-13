@@ -5,6 +5,10 @@ import Hero from "@/components/Hero";
 import FeaturedWork from "@/components/FeaturedWork";
 import AboutSection from "@/components/AboutSection";
 import ServicesList from "@/components/ServicesList";
+import ClientsGrid from "@/components/ClientsGrid";
+import Testimonials from "@/components/Testimonials";
+import StatsSection from "@/components/StatsSection";
+import TeamSection from "@/components/TeamSection";
 import ContactDrawer from "@/components/ContactDrawer";
 import Footer from "@/components/Footer";
 
@@ -27,6 +31,18 @@ export default function Home() {
 
         {/* Scroll-driven Featured Work */}
         <FeaturedWork />
+
+        {/* Clients Grid */}
+        <ClientsGrid />
+
+        {/* Testimonials */}
+        <Testimonials />
+
+        {/* Stats / Metrics */}
+        <StatsSection />
+
+        {/* Meet the Team */}
+        <TeamSection />
 
         {/* Studio Footer */}
         <Footer />

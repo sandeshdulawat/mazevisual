@@ -32,15 +32,15 @@ export default function Header({ onContactClick }: HeaderProps) {
         }`}
     >
       <div
-        className={`w-full flex items-center justify-between transition-all duration-500 ease-out bg-black/20 backdrop-blur-xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] py-3 rounded-lg ${isScrolled
-          ? "max-w-[750px] px-6"
+        className={`w-full flex items-center justify-between transition-all duration-500 ease-out bg-black/20 backdrop-blur-xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] py-3 rounded-[14px] ${isScrolled
+          ? "max-w-[750px] px-2 bg-white/10"
           : "max-w-7xl px-6 md:px-8"
           }`}
       >
         {/* Left Column: Logo */}
         <div className="flex items-center shrink-0 w-[140px]">
-          <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap">
-            Maze Visual
+          <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap pl-4">
+            Maze.
           </span>
         </div>
 
@@ -67,9 +67,9 @@ export default function Header({ onContactClick }: HeaderProps) {
         <div className="flex items-center justify-end shrink-0 w-[140px]">
           <button
             onClick={onContactClick}
-            className="rounded-lg bg-white/95 text-black px-4 py-2 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
+            className="rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
           >
-            Contact
+            Get In Touch
           </button>
         </div>
       </div>

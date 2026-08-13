@@ -104,7 +104,7 @@ export default function ServicesList() {
               imageSrc: service.imageSrc,
               tags: service.items
             })}
-            className="group flex flex-col md:flex-row items-start py-12 md:py-16 border-t border-white/10 gap-8 cursor-pointer"
+            className="group flex flex-col md:flex-row items-start py-8 md:py-10 border-t border-white/10 gap-8 cursor-pointer"
           >
             {/* Left Column: Number & Title */}
             <div className="w-full md:w-[28%] lg:w-[30%] flex flex-col gap-2 shrink-0">
@@ -121,7 +121,7 @@ export default function ServicesList() {
 
             {/* Middle Column: Items List */}
             <div className="w-full md:w-[30%] lg:w-[25%] shrink-0">
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-1">
                 {service.items.map((item, idx) => (
                   <li key={idx} className="text-neutral-400 text-sm md:text-[15px] tracking-wide hover:text-white transition-colors cursor-default">
                     {item}
@@ -133,9 +133,9 @@ export default function ServicesList() {
             {/* Right Column: Image/Visual */}
             <div className="w-full md:flex-1 flex justify-end shrink-0">
               <div className="w-full md:w-[380px] lg:w-[420px] aspect-video rounded-xl overflow-hidden shadow-2xl relative bg-neutral-900 border border-white/5 transition-transform duration-700 ease-out group-hover:scale-105">
-                <img 
-                  src={service.imageSrc} 
-                  alt={service.title} 
+                <img
+                  src={service.imageSrc}
+                  alt={service.title}
                   className="w-full h-full object-cover"
                 />
               </div>

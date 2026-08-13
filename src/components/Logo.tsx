@@ -24,7 +24,7 @@ export default function Logo() {
 
       {/* Brand Name */}
       <span className="text-xl md:text-2xl font-normal tracking-tight text-neutral-900 font-serif-custom">
-        MazeVisual
+        Maze Visual
       </span>
     </div>
   );

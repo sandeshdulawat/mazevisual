@@ -192,7 +192,7 @@ export default function FeaturedWork() {
           <div
             ref={trackRef}
             className="featured-work-track flex items-center h-full pl-[100vw] pr-[10vw]"
-            style={{ gap: 'clamp(32px, 4vw, 80px)' }}
+            style={{ gap: 'clamp(24px, 3vw, 56px)' }}
           >
             {featuredProjects.map((project) => (
               <div
@@ -210,15 +210,15 @@ export default function FeaturedWork() {
                   </div>
                 </div>
 
-                <div className="w-full mt-5 md:mt-8 flex flex-col items-start px-1 md:px-2">
-                  <h3 className="text-xl md:text-3xl text-white font-medium mb-3 md:mb-4 font-inter-tight">
+                <div className="w-full mt-4 md:mt-6 flex flex-col items-start px-1 md:px-2">
+                  <h3 className="text-lg md:text-2xl text-white font-medium mb-2 md:mb-3 font-inter-tight">
                     {project.title}
                   </h3>
-                  <div className="flex flex-wrap gap-2 md:gap-3">
+                  <div className="flex flex-wrap gap-1.5 md:gap-2">
                     {project.tags.map(tag => (
                       <span
                         key={tag}
-                        className="px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-white/20 text-white/70 text-[10px] md:text-xs uppercase tracking-wider font-inter-tight"
+                        className="px-2.5 md:px-3 py-1 md:py-1.5 rounded-full border border-white/20 text-white/70 text-[9px] md:text-[11px] uppercase tracking-wider font-inter-tight"
                       >
                         {tag}
                       </span>
