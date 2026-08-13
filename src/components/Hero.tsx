@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Header from "./Header";
 import ProjectModal from "./ProjectModal";
 import ContactDrawer from "./ContactDrawer";
@@ -11,16 +11,30 @@ export default function Hero() {
   const [selectedItem, setSelectedItem] = useState<CardItem | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
+  const { scrollY } = useScroll();
+  const scale = useTransform(scrollY, [0, 800], [1, 0.9]);
+  const rotateX = useTransform(scrollY, [0, 800], [0, 8]);
+  const opacity = useTransform(scrollY, [0, 800], [1, 0.3]);
+
   return (
     <>
-      <section className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-center bg-black text-white">
-        {/* Deep black mesh background */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-          className="absolute inset-0 z-0 overflow-hidden"
+      <Header onContactClick={() => setIsContactOpen(true)} />
+
+      <section 
+        className="sticky top-0 z-0 w-full h-screen overflow-hidden bg-black flex flex-col items-center justify-center"
+        style={{ perspective: "1000px" }}
+      >
+        <motion.div
+          style={{ scale, rotateX, opacity }}
+          className="relative w-full h-full flex flex-col items-center justify-center text-white origin-center"
         >
+          {/* Deep black mesh background */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="absolute inset-0 z-0 overflow-hidden"
+          >
           <div className="absolute inset-0 bg-black"></div>
 
           {/* Subtle white/grey center glow to maintain the glowing effect but in black/white theme */}
@@ -64,9 +78,6 @@ export default function Hero() {
           <div className="absolute inset-0 opacity-[0.25] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
         </motion.div>
 
-        {/* Header with Logo, Editorial Headline, and CTA */}
-        <Header onContactClick={() => setIsContactOpen(true)} />
-
         {/* Centered Hero Content */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full mt-4 max-w-5xl mx-auto">
           <motion.h1
@@ -99,6 +110,7 @@ export default function Hero() {
           <div>11:10 PM</div>
           <div className="hidden md:block">Scroll to Explore</div>
           <div>PNQ, IND</div>
+        </motion.div>
         </motion.div>
       </section>
 

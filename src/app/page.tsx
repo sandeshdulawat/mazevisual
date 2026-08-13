@@ -16,19 +16,21 @@ export default function Home() {
       {/* Device Height Hero Section */}
       <Hero />
 
-      {/* Studio Overview */}
-      <AboutSection />
+      <div className="relative z-10 bg-black">
+        {/* Studio Overview */}
+        <AboutSection />
 
-      {/* What We Do (Services List) */}
-      <section className="w-full bg-black">
-        <ServicesList />
-      </section>
+        {/* What We Do (Services List) */}
+        <section className="w-full bg-black">
+          <ServicesList />
+        </section>
 
-      {/* Scroll-driven Featured Work */}
-      <FeaturedWork />
+        {/* Scroll-driven Featured Work */}
+        <FeaturedWork />
 
-      {/* Studio Footer */}
-      <Footer />
+        {/* Studio Footer */}
+        <Footer />
+      </div>
 
       {/* Global Contact Drawer */}
       <ContactDrawer
