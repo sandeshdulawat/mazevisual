@@ -45,7 +45,7 @@ export default function Header({ onContactClick }: HeaderProps) {
         </div>
 
         {/* Center Column: Links (Hidden on small screens) */}
-        <nav className={`hidden md:flex flex-1 items-center justify-center transition-all duration-500 ${isScrolled ? "gap-5" : "gap-8 lg:gap-10"} text-white/80 text-[13px] font-inter-tight tracking-wide`}>
+        <nav className={`hidden md:flex flex-1 items-center justify-center transition-all duration-500 ${isScrolled ? "gap-5" : "gap-5 lg:gap-5"} text-white/80 text-[13px] font-inter-tight tracking-wide`}>
           <Link href="#home" className="hover:text-white transition-colors">
             Home
           </Link>

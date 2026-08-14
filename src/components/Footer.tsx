@@ -1,6 +1,5 @@
-"use client";
-
 import React from "react";
+import Link from "next/link";
 import Logo from "./Logo";
 import { ArrowUpRight } from "lucide-react";
 
@@ -19,36 +18,36 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap gap-8 text-sm">
-            <a
-              href="#branding"
+            <Link
+              href="/services/branding"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Branding
-            </a>
-            <a
-              href="#architecture"
+            </Link>
+            <Link
+              href="/services/architecture"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Architecture
-            </a>
-            <a
-              href="#digital"
+            </Link>
+            <Link
+              href="/services/digital"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Digital
-            </a>
-            <a
-              href="#visualization"
+            </Link>
+            <Link
+              href="/services/visualization"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Visualization
-            </a>
-            <a
-              href="#interior"
+            </Link>
+            <Link
+              href="/services/interior"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Interior
-            </a>
+            </Link>
           </div>
         </div>
 
