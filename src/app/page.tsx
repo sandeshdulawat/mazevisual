@@ -1,20 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import FeaturedWork from "@/components/FeaturedWork";
-import AboutSection from "@/components/AboutSection";
-import ServicesList from "@/components/ServicesList";
-import ClientsGrid from "@/components/ClientsGrid";
-import Testimonials from "@/components/Testimonials";
-import StatsSection from "@/components/StatsSection";
-import TeamSection from "@/components/TeamSection";
-import ContactDrawer from "@/components/ContactDrawer";
-import Footer from "@/components/Footer";
+
+// Dynamically import below-the-fold sections to reduce initial JS bundle.
+// Only Hero + Header are needed for the first paint.
+const AboutSection = dynamic(() => import("@/components/AboutSection"));
+const ServicesList = dynamic(() => import("@/components/ServicesList"));
+const FeaturedWork = dynamic(() => import("@/components/FeaturedWork"));
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const StatsSection = dynamic(() => import("@/components/StatsSection"));
+const TeamSection = dynamic(() => import("@/components/TeamSection"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
-  const [isContactOpen, setIsContactOpen] = useState(false);
-
   return (
     <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black block">
       {/* Device Height Hero Section */}
@@ -32,9 +31,6 @@ export default function Home() {
         {/* Scroll-driven Featured Work */}
         <FeaturedWork />
 
-        {/* Clients Grid */}
-        <ClientsGrid />
-
         {/* Testimonials */}
         <Testimonials />
 
@@ -47,12 +43,6 @@ export default function Home() {
         {/* Studio Footer */}
         <Footer />
       </div>
-
-      {/* Global Contact Drawer */}
-      <ContactDrawer
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
     </main>
   );
 }

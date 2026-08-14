@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #111111;
@@ -29,6 +29,15 @@ body {
   letter-spacing: 0.04em;
 }
 
+/* Use next/font CSS variables instead of @import */
+.font-inter-tight {
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+}
+
+.font-cormorant {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+}
+
 /* Custom scrollbar for clean presentation */
 ::-webkit-scrollbar {
   width: 6px;
@@ -44,14 +53,7 @@ body {
   background: #888;
 }
 
-.font-inter-tight {
-  font-family: 'Inter Tight', sans-serif;
-}
-
-.font-cormorant {
-  font-family: 'Cormorant Garamond', serif;
-}
-
+/* Global marquee animation */
 @keyframes marquee-left {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
@@ -61,4 +63,65 @@ body {
   animation: marquee-left 25s linear infinite;
   display: flex;
   width: max-content;
+}
+
+/* ============================================
+   Hero CSS Animations (no JS needed for entrance)
+   ============================================ */
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-up-sm {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-up-xs {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-bg-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-bg-fade {
+  animation: hero-bg-appear 2s ease-out both;
+}
+
+.hero-title {
+  opacity: 0;
+  animation: hero-fade-in 1.2s ease-out 0.3s both;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  animation: hero-fade-up-sm 1.2s ease-out 0.5s both;
+}
+
+.hero-bottom {
+  opacity: 0;
+  animation: hero-fade-up-xs 1.2s ease-out 0.7s both;
 }

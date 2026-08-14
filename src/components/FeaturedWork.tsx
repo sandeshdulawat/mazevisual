@@ -1,20 +1,13 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import Lenis from "lenis";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
+import React from "react";
+import { motion } from "framer-motion";
 
 const featuredProjects = [
   {
     id: 1,
     title: "Strategic Design & Marketing for ConvertIAS",
-    tags: ["Marketing", "Brand Identity", "Product Design"],
+    tags: ["Marketing", "Product Design"],
     image: "https://images.unsplash.com/photo-1716471330463-f475b00f0506?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
@@ -43,191 +36,93 @@ const featuredProjects = [
   }
 ];
 
+// Duplicate the array for a seamless infinite loop
+const marqueeProjects = [...featuredProjects, ...featuredProjects];
+
 export default function FeaturedWork() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
-    };
-  }, []);
-
-  useGSAP(() => {
-    const track = trackRef.current;
-    const container = containerRef.current;
-    const header = headerRef.current;
-
-    if (!track || !container || !header) return;
-
-    const cards = gsap.utils.toArray(".project-card") as HTMLElement[];
-    const images = gsap.utils.toArray(".project-image-inner") as HTMLElement[];
-
-    const getScrollAmount = () => {
-      // Calculate how far the track needs to translate
-      const trackWidth = track.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      return Math.max(0, trackWidth - viewportWidth);
-    };
-
-    const tween = gsap.to(track, {
-      x: () => -getScrollAmount(),
-      ease: "none",
-    });
-
-    ScrollTrigger.create({
-      trigger: container,
-      start: "top top",
-      end: () => `+=${getScrollAmount()}`,
-      pin: true,
-      animation: tween,
-      scrub: 1, // Smooth scrub
-      invalidateOnRefresh: true, // Recalculates on resize
-    });
-
-    // Fade out and translate the header as the first card comes into view
-    if (cards.length > 0) {
-      gsap.to(header, {
-        opacity: 0,
-        x: -150, // Move left slightly as it fades
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: cards[0], // Trigger based on the first card
-          containerAnimation: tween,
-          start: "left 90%", // Start fading when first card is 10% into the screen from the right
-          end: "left 20%", // Fully faded out when the first card approaches the center/left
-          scrub: true,
-        }
-      });
-    }
-
-    // Sub-animations using containerAnimation
-    cards.forEach((card, i) => {
-      const image = images[i];
-
-      // Parallax effect on the image
-      if (image) {
-        gsap.fromTo(
-          image,
-          { x: "-10%" },
-          {
-            x: "10%",
-            ease: "none",
-            scrollTrigger: {
-              trigger: card,
-              containerAnimation: tween,
-              start: "left right", // Card enters viewport from right
-              end: "right left", // Card leaves viewport from left
-              scrub: true,
-            },
-          }
-        );
-      }
-
-      // Emphasis effect
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          containerAnimation: tween,
-          start: "left right",
-          end: "right left",
-          scrub: true,
-        }
-      });
-
-      tl.fromTo(card,
-        { opacity: 0.75, scale: 0.96 },
-        { opacity: 1, scale: 1, duration: 0.4, ease: "power1.inOut" }
-      )
-        .to(card,
-          { opacity: 0.75, scale: 0.96, duration: 0.4, ease: "power1.inOut" },
-          ">0.2"
-        );
-    });
-
-    return () => {
-      // Clean up all ScrollTriggers on unmount
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, { scope: containerRef });
-
   return (
-    <section
-      ref={containerRef}
-      className="featured-work relative h-screen bg-black text-[#f4f4f4] overflow-hidden"
-    >
-      <div className="featured-work-sticky absolute inset-0 w-full h-full flex flex-col justify-center">
+    <section className="w-full bg-black text-[#f4f4f4] py-20 md:py-32 overflow-hidden flex flex-col items-center">
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes marquee {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}} />
 
-        <header ref={headerRef} className="featured-work-header absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-4">
-          <p className="font-cormorant italic text-[clamp(60px,12vw,150px)] font-medium leading-[1.05] text-center"
-            style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
-            Featured work
+      {/* Header Container */}
+      <div className="w-full max-w-[1200px] px-4 md:px-8 mx-auto mb-16 md:mb-20">
+
+        {/* Main Title & Description */}
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-5xl md:text-7xl lg:text-[80px] font-medium tracking-tight text-white mb-6">
+            <span className="font-serif-custom italic">Featured</span> <span className="font-serif-custom">work</span>
+          </h2>
+          <p className="text-neutral-400 text-lg md:text-xl max-w-lg leading-relaxed font-sans font-medium">
+            A curated selection of digital experiences, products and identities crafted for ambitious brands.
           </p>
-        </header>
+        </div>
 
-        <div className="featured-work-viewport absolute inset-0 w-full h-full flex items-center z-20">
-          <div
-            ref={trackRef}
-            className="featured-work-track flex items-center h-full pl-[100vw] pr-[10vw]"
-            style={{ gap: 'clamp(24px, 3vw, 56px)' }}
-          >
-            {featuredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="project-card relative flex-shrink-0 flex flex-col justify-center h-full max-h-[70vh]"
-                style={{ width: 'clamp(320px, 55vw, 850px)' }}
-              >
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-xl md:rounded-2xl bg-neutral-900 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                  <div className="absolute top-0 left-[-10%] w-[120%] h-full">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="project-image-inner w-full h-full object-cover object-center pointer-events-none"
-                    />
-                  </div>
-                </div>
+        {/* Divider */}
+        <div className="w-full md:max-w-2xl h-px bg-white/20 mb-6"></div>
 
-                <div className="w-full mt-4 md:mt-6 flex flex-col items-start px-1 md:px-2">
-                  <h3 className="text-lg md:text-2xl text-white font-medium mb-2 md:mb-3 font-inter-tight">
-                    {project.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 md:gap-2">
-                    {project.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="px-2.5 md:px-3 py-1 md:py-1.5 rounded-full border border-white/20 text-white/70 text-[9px] md:text-[11px] uppercase tracking-wider font-inter-tight"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+        {/* Meta Row */}
+        <div className="w-full md:max-w-2xl flex items-center justify-between text-[10px] md:text-xs text-neutral-300 tracking-[0.2em] uppercase font-sans font-semibold">
+          <span>SELECTED PROJECTS &bull; 2024 &mdash; 2026</span>
+          <span>{featuredProjects.length < 10 ? `0${featuredProjects.length}` : featuredProjects.length} PROJECTS</span>
+        </div>
+      </div>
+
+      {/* Marquee Carousel Container */}
+      <div className="w-full relative max-w-[100vw]">
+
+        {/* Fade Mask Overlays */}
+        <div className="absolute inset-y-0 left-0 w-12 md:w-48 bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-12 md:w-48 bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none"></div>
+
+        {/* Scrolling Track */}
+        <div className="flex w-fit animate-marquee hover:pause cursor-pointer" style={{ gap: '2rem' }}>
+          {marqueeProjects.map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="flex flex-col w-[210px] md:w-[315px] shrink-0 group pl-4 md:pl-0"
+            >
+              {/* Card Image */}
+              <div className="w-full aspect-[3/2] rounded-2xl overflow-hidden mb-4 bg-[#1a1a1a]">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-            ))}
-          </div>
+
+              {/* Title */}
+              <h3 className="text-white text-[13px] md:text-[15px] font-medium mb-3 font-sans tracking-wide px-1">
+                {project.title}
+              </h3>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 px-1 mt-auto">
+                {project.tags.map(tag => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 rounded-full border border-white/20 text-neutral-400 text-[9px] md:text-[10px] uppercase tracking-widest font-sans font-semibold"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
