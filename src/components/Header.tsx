@@ -39,26 +39,28 @@ export default function Header({ onContactClick }: HeaderProps) {
       >
         {/* Left Column: Logo */}
         <div className="flex items-center shrink-0 w-[140px]">
-          <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap pl-4">
-            Maze.
-          </span>
+          <Link href="/">
+            <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap pl-4 hover:text-white/80 transition-colors cursor-pointer">
+              Maze.
+            </span>
+          </Link>
         </div>
 
         {/* Center Column: Links (Hidden on small screens) */}
         <nav className={`hidden md:flex flex-1 items-center justify-center transition-all duration-500 ${isScrolled ? "gap-5" : "gap-5 lg:gap-5"} text-white/80 text-[13px] font-inter-tight tracking-wide`}>
-          <Link href="#home" className="hover:text-white transition-colors">
+          <Link href="/" className="hover:text-white transition-colors">
             Home
           </Link>
-          <Link href="#services" className="hover:text-white transition-colors">
+          <Link href="/#services" className="hover:text-white transition-colors">
             Services
           </Link>
-          <Link href="#work" className="hover:text-white transition-colors">
+          <Link href="/#work" className="hover:text-white transition-colors">
             Work
           </Link>
-          <Link href="#studio" className="hover:text-white transition-colors">
+          <Link href="/#studio" className="hover:text-white transition-colors">
             Studio
           </Link>
-          <Link href="#insights" className="hover:text-white transition-colors">
+          <Link href="/#insights" className="hover:text-white transition-colors">
             Insights
           </Link>
         </nav>
