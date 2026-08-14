@@ -46,26 +46,26 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="w-full bg-black py-24 md:py-32 overflow-hidden relative">
+    <section className="w-full bg-black py-32 md:py32 overflow-hidden relative">
       <div className="w-full mx-auto px-4 flex flex-col items-center">
-        
+
         {/* Header */}
         {/* Header - Hidden to match exact screenshot which only shows the carousel itself, but I'll leave it in case it's just scrolled down. Wait, the screenshot doesn't show the header, just the carousel and pagination. I'll keep the header. */}
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-[56px] font-medium tracking-tight text-white mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-3xl md:text-4xl lg:text-[48px] font-medium tracking-tight text-white mb-3 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             Hear <span className="font-serif-custom italic text-white/90">from</span> our partners
           </h2>
-          <p className="text-neutral-400 text-sm md:text-base font-sans tracking-wide">
+          <p className="text-neutral-400 text-xs md:text-sm font-sans tracking-wide">
             With over 60 clients served, here's what they have to say
           </p>
         </div>
 
         {/* Carousel Container */}
-        <div className="relative w-full max-w-[100vw] h-[550px] md:h-[400px] flex items-center justify-center">
+        <div className="relative w-full max-w-[100vw] h-[450px] md:h-[320px] flex items-center justify-center">
           {testimonials.map((t, index) => {
             const length = testimonials.length;
             let position = "hidden";
-            
+
             if (index === currentIndex) position = "active";
             else if (index === (currentIndex - 1 + length) % length) position = "prev";
             else if (index === (currentIndex + 1) % length) position = "next";
@@ -85,12 +85,12 @@ export default function Testimonials() {
             let zIndex = 10;
 
             if (isPrev) {
-              x = "-105%"; 
+              x = "-105%";
               scale = 0.9;
               opacity = 0.3;
               zIndex = 5;
             } else if (isNext) {
-              x = "105%"; 
+              x = "105%";
               scale = 0.9;
               opacity = 0.3;
               zIndex = 5;
@@ -115,31 +115,31 @@ export default function Testimonials() {
                 key={`${t.id}-${index}`}
                 initial={false}
                 animate={{ x, scale, opacity, zIndex }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} 
-                className="absolute w-[92%] md:w-[900px] h-full p-6 md:p-8 rounded-2xl bg-[#101010] border border-white/[0.05] flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-2xl"
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute w-[92%] md:w-[750px] h-full p-5 md:p-6 rounded-2xl bg-[#101010] border border-white/[0.05] flex flex-col md:flex-row items-center gap-6 md:gap-8 shadow-2xl"
                 style={{
                   backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0)',
                   backgroundSize: '24px 24px'
                 }}
               >
                 {/* Image */}
-                <div className="w-full md:w-[35%] aspect-[4/5] md:aspect-[4/5] md:h-full rounded-xl overflow-hidden shrink-0">
+                <div className="w-full md:w-[30%] aspect-[4/5] md:aspect-[3/4] md:h-full rounded-xl overflow-hidden shrink-0">
                   <img src={t.image} alt={t.name} className="w-full h-full object-cover grayscale" />
                 </div>
 
                 {/* Content */}
-                <div className="w-full md:w-[65%] flex flex-col h-full justify-between py-2 md:py-4 relative">
-                  <p className="text-neutral-300 text-[15px] md:text-[17px] leading-[1.6] font-sans font-normal">
+                <div className="w-full md:w-[70%] flex flex-col h-full justify-between py-1 md:py-2 relative">
+                  <p className="text-neutral-300 text-[14px] md:text-[15px] leading-[1.6] font-sans font-normal">
                     {t.quote}
                   </p>
 
-                  <div className="flex items-end justify-between mt-8 md:mt-auto">
+                  <div className="flex items-end justify-between mt-6 md:mt-auto">
                     <div className="flex flex-col">
-                      <span className="text-white font-bold text-sm md:text-base">{t.name}</span>
-                      <span className="text-neutral-500 text-xs md:text-sm mt-1">{t.title}</span>
+                      <span className="text-white font-bold text-sm md:text-[15px]">{t.name}</span>
+                      <span className="text-neutral-500 text-xs mt-1">{t.title}</span>
                     </div>
-                    
-                    <div className="flex items-center text-white/90 font-sans font-bold tracking-wide text-sm md:text-base">
+
+                    <div className="flex items-center text-white/90 font-sans font-bold tracking-wide text-sm">
                       {t.logo}
                     </div>
                   </div>
@@ -147,7 +147,7 @@ export default function Testimonials() {
 
                 {/* Overlays for Previous/Next clicking */}
                 {isPrev && (
-                  <div 
+                  <div
                     className="absolute inset-0 z-20 cursor-pointer flex items-center justify-end pr-8 md:pr-12"
                     onClick={handlePrev}
                   >
@@ -156,9 +156,9 @@ export default function Testimonials() {
                     </div>
                   </div>
                 )}
-                
+
                 {isNext && (
-                  <div 
+                  <div
                     className="absolute inset-0 z-20 cursor-pointer flex items-center justify-start pl-8 md:pl-12"
                     onClick={handleNext}
                   >
@@ -167,7 +167,7 @@ export default function Testimonials() {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Fallback invisible click area if it's the active one (maybe to pause auto-play later) */}
                 {isActive && (
                   <div className="absolute inset-0 z-0 pointer-events-none" />
@@ -179,13 +179,12 @@ export default function Testimonials() {
 
         {/* Pagination Dots */}
         <div className="mt-12 flex items-center justify-center">
-          <div className="bg-[#222] rounded-full px-4 py-2 flex items-center gap-2.5">
+          <div className="bg-[#222] rounded-full px-2 py-1 flex items-center gap-2.5">
             {testimonials.map((_, index) => (
               <div
                 key={index}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "bg-white scale-125" : "bg-[#555]"
-                }`}
+                className={`w-1 h-1 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-white scale-125" : "bg-[#555]"
+                  }`}
               />
             ))}
           </div>
