@@ -7,6 +7,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactDrawer from "@/components/ContactDrawer";
+import ServiceTeamStats from "@/components/ServiceTeamStats";
 import { ServiceData } from "@/data/services";
 
 interface ServicePageContentProps {
@@ -77,6 +78,9 @@ export default function ServicePageContent({ service }: ServicePageContentProps)
           </motion.p>
         </div>
       </section>
+
+      {/* Team & Stats Section */}
+      <ServiceTeamStats />
 
       {/* Long Description Section */}
       <section className="w-full bg-black py-20 md:py-28">
