@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
 
 interface MobileMenuOverlayProps {
@@ -22,7 +22,7 @@ export default function MobileMenuOverlay({ isOpen, onClose }: MobileMenuOverlay
     };
   }, [isOpen]);
 
-  const ease = [0.55, 0, 0.1, 1];
+  const ease = cubicBezier(0.55, 0, 0.1, 1);
 
   return (
     <div
