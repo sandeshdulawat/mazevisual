@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { servicesData, getServiceBySlug, getAllServiceSlugs } from "@/data/services";
 import ServicePageContent from "./ServicePageContent";
+
 import InteriorPageContent from "./InteriorPageContent";
 
 interface ServicePageProps {

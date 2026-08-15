@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 
 interface HeaderProps {
   onContactClick?: () => void;
@@ -65,14 +66,18 @@ export default function Header({ onContactClick }: HeaderProps) {
           </Link>
         </nav>
 
-        {/* Right Column: CTA Button */}
-        <div className="flex items-center justify-end shrink-0 w-[140px]">
+        {/* Right Column: CTA Button & Mobile Menu */}
+        <div className="flex items-center justify-end shrink-0 w-[140px] gap-2 md:gap-0">
           <button
             onClick={onContactClick}
-            className="rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
+            className="hidden md:block rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
           >
             Get In Touch
           </button>
+          
+          <div className="block md:hidden mr-2">
+            <MobileMenu onContactClick={onContactClick} />
+          </div>
         </div>
       </div>
     </motion.header>
