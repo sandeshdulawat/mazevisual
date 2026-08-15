@@ -244,7 +244,7 @@ export default function ServiceTeamStats() {
           line-height: 1;
           color: #ffffff;
           text-align: center;
-          margin-bottom: 0;
+          margin-top: -150px;
           z-index: 4;
           position: relative;
         }
@@ -262,7 +262,7 @@ export default function ServiceTeamStats() {
         .big-results-wrap {
           position: relative;
           width: 100%;
-          margin-top: -20px;
+          margin-top: -100px;
           display: flex;
           justify-content: center;
           z-index: 1;
