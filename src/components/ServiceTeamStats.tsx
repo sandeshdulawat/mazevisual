@@ -45,11 +45,28 @@ export default function ServiceTeamStats() {
 
     // ============================================================
     // INTRO TIMELINE
-    // (trigger on scroll since section is below fold on service pages)
     // ============================================================
     const intro = gsap.timeline({
       scrollTrigger: { trigger: qs(".hero"), start: "top 80%", once: true },
       defaults: { ease: "power3.out" },
+      onComplete: () => {
+        // ============================================================
+        // CONTINUOUS FLOAT ON CARDS
+        // (Started here so it grabs y: 0 as its base, not y: -800)
+        // ============================================================
+        qsa<HTMLElement>(".card").forEach((card, i) => {
+          const rot = parseFloat(card.dataset.restRot ?? "0");
+          gsap.to(card, {
+            y: `+=${8 + (i % 3) * 5}`,
+            rotation: rot + (i % 2 === 0 ? 1.5 : -1.5),
+            duration: 3 + (i % 4) * 0.5,
+            delay: i * 0.1,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+        });
+      }
     });
 
     intro
@@ -63,22 +80,6 @@ export default function ServiceTeamStats() {
         ease: "back.out(1.4)",
       }, 0.8)
       .to(qs("#subline"), { opacity: 1, y: 0, duration: 0.8 }, 1.6);
-
-    // ============================================================
-    // CONTINUOUS FLOAT ON CARDS
-    // ============================================================
-    qsa<HTMLElement>(".card").forEach((card, i) => {
-      const rot = parseFloat(card.dataset.restRot ?? "0");
-      gsap.to(card, {
-        y: `+=${8 + (i % 3) * 5}`,
-        rotation: rot + (i % 2 === 0 ? 1.5 : -1.5),
-        duration: 3 + (i % 4) * 0.5,
-        delay: 1.8 + i * 0.1,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-    });
 
     // ============================================================
     // MOUSE PARALLAX ON CARDS
