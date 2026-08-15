@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import MobileMenu from "./MobileMenu";
+import AnimatedMenuTrigger from "./AnimatedMenuTrigger";
+import MobileMenuOverlay from "./MobileMenuOverlay";
 
 interface HeaderProps {
   onContactClick?: () => void;
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 export default function Header({ onContactClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +27,12 @@ export default function Header({ onContactClick }: HeaderProps) {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: 0, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.2, ease: "easeOut" }}
+    <>
+      <MobileMenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <motion.header
+        initial={{ y: 0, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       className={`w-full flex justify-center px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "pt-6" : "pt-6"
         }`}
     >
@@ -66,8 +70,8 @@ export default function Header({ onContactClick }: HeaderProps) {
           </Link>
         </nav>
 
-        {/* Right Column: CTA Button & Mobile Menu */}
-        <div className="flex items-center justify-end shrink-0 w-[140px] gap-2 md:gap-0">
+        {/* Right Column: CTA Button / Mobile Menu */}
+        <div className="flex items-center justify-end shrink-0 w-[140px]">
           <button
             onClick={onContactClick}
             className="hidden md:block rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm"
@@ -75,11 +79,15 @@ export default function Header({ onContactClick }: HeaderProps) {
             Get In Touch
           </button>
           
-          <div className="block md:hidden mr-2">
-            <MobileMenu onContactClick={onContactClick} />
+          <div className="block md:hidden">
+            <AnimatedMenuTrigger 
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
           </div>
         </div>
       </div>
     </motion.header>
+    </>
   );
 }
