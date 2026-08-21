@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: 'onboarding@resend.dev',
-        to: 'sdulawat.work@gmail.com',
+        to: ['sdulawat.work@gmail.com', 'sdulawat9174799616@gmail.com'],
         subject: `New Commission Inquiry from ${name}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
