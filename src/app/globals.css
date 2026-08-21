@@ -29,6 +29,10 @@ body {
   letter-spacing: 0.04em;
 }
 
+.font-klein {
+  font-family: var(--font-klein), sans-serif;
+}
+
 /* Use next/font CSS variables instead of @import */
 .font-inter-tight {
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;

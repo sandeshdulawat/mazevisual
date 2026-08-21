@@ -35,7 +35,7 @@ export default function ServiceTeamStats() {
     gsap.set(qsa(".small-team .word > span"), { y: "105%" });
     gsap.set(qsa(".big-results .letter"), { y: 80, opacity: 0 });
     gsap.set(qs("#subline"), { opacity: 0, y: 20 });
-    gsap.set(qs(".stats-inner"), { opacity: 0 });
+    gsap.set(qs(".stats-bg"), { opacity: 0 });
 
     qsa<HTMLElement>(".card").forEach((card) => {
       const rot = parseFloat(card.dataset.rot ?? "0");
@@ -166,11 +166,11 @@ export default function ServiceTeamStats() {
     // ============================================================
     // STATS REVEAL + COUNTERS
     // ============================================================
-    gsap.to(qs(".stats-inner"), {
+    gsap.to(qs(".stats-bg"), {
       opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
       scrollTrigger: { trigger: qs(".stats"), start: "top 80%" },
     });
-    gsap.from(qs(".stats-inner"), {
+    gsap.from(qs(".stats-bg"), {
       y: 60, scale: 0.97, duration: 1.2, ease: "power3.out",
       scrollTrigger: { trigger: qs(".stats"), start: "top 80%" },
     });
@@ -180,7 +180,7 @@ export default function ServiceTeamStats() {
       start: "top 75%",
       once: true,
       onEnter: () => {
-        qsa<HTMLElement>(".stat-block .num").forEach((el) => {
+        qsa<HTMLElement>(".stat-col .num").forEach((el) => {
           const target = parseFloat(el.dataset.count ?? "0");
           const span = el.querySelector("span")!;
           gsap.to({ v: 0 }, {
@@ -389,91 +389,141 @@ export default function ServiceTeamStats() {
           letter-spacing: 0.06em;
         }
 
-        /* ── Stats ── */
+        /* ── Stats — cityscape design ── */
         .stats {
-          padding: 80px 40px 140px;
           position: relative;
           z-index: 5;
+          overflow: hidden;
           background: #000;
         }
-        .stats-inner {
-          max-width: 1280px;
-          margin: 0 auto;
-          background: #0c0c0c;
-          border-radius: 36px;
-          padding: 80px 60px;
-          color: #f4f4f4;
-          display: grid;
-          grid-template-columns: 1.4fr 1fr 1fr 1fr;
-          gap: 40px;
-          align-items: end;
-          box-shadow: 0 40px 80px -30px rgba(0,0,0,0.95), 0 16px 32px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -3px 8px rgba(0,0,0,0.5);
+        .stats-bg {
           position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          width: 100%;
+          min-height: 580px;
+          background:
+            linear-gradient(to bottom, rgba(20,18,12,0.55) 0%, rgba(10,10,10,0.72) 60%, rgba(5,5,5,0.92) 100%),
+            url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1800&q=80&fit=crop') center/cover no-repeat;
+          display: flex;
+          align-items: stretch;
         }
-        .stats-inner::before {
-          content: "";
+        /* Top-to-middle black shade — blends completely with solid black section above */
+        .stats-bg::before {
+          content: '';
           position: absolute;
-          width: 500px; height: 500px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 65%);
-          top: -200px; right: -100px; filter: blur(40px);
-        }
-        .stats-inner::after {
-          content: "";
-          position: absolute;
-          width: 350px; height: 350px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 65%);
-          bottom: -150px; left: 20%; filter: blur(30px);
-        }
-        .stats h3 {
-          font-family: "DM Sans", inherit;
-          font-weight: 700;
-          font-size: clamp(28px, 3vw, 42px);
-          line-height: 1.05;
-          letter-spacing: -0.03em;
-          position: relative;
+          inset: 0;
+          background: linear-gradient(
+            to bottom,
+            #000000 0%,
+            #000000 12%,
+            rgba(0, 0, 0, 0.85) 30%,
+            rgba(0, 0, 0, 0.4) 50%,
+            transparent 65%
+          );
           z-index: 1;
-          color: #ffffff;
+          pointer-events: none;
         }
-        .stats h3 em {
-          font-style: italic;
+        .stats-inner {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 60px;
+          display: flex;
+          align-items: stretch;
+          justify-content: space-between;
+          position: relative;
+          color: #fff;
+          min-height: 540px;
+        }
+        /* vertical divider + stat column */
+        .stat-col {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          position: relative;
+          padding: 0 0 0 28px;
+          flex: 1;
+        }
+        /* vertical line — runs from the dot level down to the bottom */
+        .stat-col::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 1px;
+          background: rgba(180,180,180,0.35);
+          z-index: 1;
+        }
+        /* stagger content position using padding-top; line top matches dot center */
+        .stat-col-0 { padding-top: 200px; }
+        .stat-col-0::before { top: calc(200px + 24px); }
+        .stat-col-1 { padding-top: 110px; }
+        .stat-col-1::before { top: calc(110px  + 24px); }
+        .stat-col-2 { padding-top: 250px; }
+        .stat-col-2::before { top: calc(250px + 24px); }
+        .stat-col-3 { padding-top: 140px; }
+        .stat-col-3::before { top: calc(140px + 24px); }
+        /* dot — vertically centred with first line of the number, solid opaque covering top of line */
+        .stat-col::after {
+          content: '';
+          position: absolute;
+          left: -4px;
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background: #cccccc;
+          z-index: 2;
+        }
+        .stat-col-0::after { top: calc(200px + 20px); }
+        .stat-col-1::after { top: calc(110px  + 20px); }
+        .stat-col-2::after { top: calc(250px + 20px); }
+        .stat-col-3::after { top: calc(140px + 20px); }
+        .stat-num {
+          font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
           font-weight: 800;
-          background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-        .stat-block { position: relative; z-index: 1; }
-        .stat-block .num {
-          font-family: "DM Sans", inherit;
-          font-weight: 700;
-          font-size: clamp(44px, 4.5vw, 68px);
+          font-size: clamp(48px, 5.5vw, 88px);
           line-height: 1;
           letter-spacing: -0.04em;
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
           color: #ffffff;
+          display: flex;
+          align-items: flex-start;
+          gap: 0;
+          position: relative;
         }
-        .stat-block .num small {
-          font-size: 0.42em;
-          color: rgba(255, 255, 255, 0.35);
-          font-weight: 500;
+        .stat-num .suffix {
+          font-size: 0.5em;
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1;
+          margin-top: 0.1em;
         }
-        .stat-block .lbl {
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
-          color: rgba(255, 255, 255, 0.3);
-          margin-top: 14px;
-          padding-top: 14px;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* yellow superscript dot after number */
+        .stat-dot {
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #d4e600;
+          margin-left: 4px;
+          margin-top: 6px;
+          flex-shrink: 0;
+        }
+        .stat-lbl {
+          font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          color: rgba(210, 210, 210, 0.75);
+          letter-spacing: 0.01em;
+          line-height: 1.4;
+          margin-top: 10px;
         }
 
-        /* ── Responsive — exact from original ── */
-        @media (max-width: 1100px) {
-          .stats-inner { grid-template-columns: 1fr 1fr; padding: 50px 30px; }
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+          .stats-inner { padding: 0 24px; }
+          .stat-col { padding-left: 16px; }
         }
         @media (max-width: 750px) {
           .hero        { padding: 100px 16px 40px; }
@@ -489,8 +539,103 @@ export default function ServiceTeamStats() {
           .card-7 { width: 100px; height: 140px; left: 74%; top: 20px; }
           .card-8 { width:  80px; height: 110px; left: 87%; top: 35px; }
           .subline     { margin-top: 120px; }
-          .stats       { padding: 20px 20px 60px; }
-          .stats-inner { grid-template-columns: 1fr 1fr; padding: 40px 24px; gap: 24px; }
+          .stats-bg    { min-height: 360px; }
+          .stats-inner { min-height: 360px; flex-wrap: wrap; padding: 24px 16px; gap: 8px; }
+          .stat-col    { flex: 0 0 48%; padding-bottom: 32px !important; padding-left: 14px; }
+          .stat-col::before { height: 120px !important; }
+          .stat-col::after  { bottom: calc(120px - 4px) !important; }
+          .stat-num  { font-size: 11vw; }
+        }
+
+        /* ── Craft Gallery (Beige Section below stats) ── */
+        .craft-gallery {
+          background: #eae5dc;
+          color: #1a1917;
+          padding: 100px 0 80px;
+          position: relative;
+          z-index: 5;
+          overflow: hidden;
+        }
+        .craft-gallery-inner {
+          max-width: 1300px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+        .craft-header {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: start;
+          margin-bottom: 60px;
+        }
+        .craft-title {
+          font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+          font-size: clamp(28px, 3.2vw, 44px);
+          font-weight: 800;
+          text-transform: uppercase;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          color: #1a1917;
+        }
+        .craft-desc {
+          font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+          font-size: 15px;
+          line-height: 1.7;
+          color: rgba(26, 25, 23, 0.75);
+        }
+        .craft-cards-row {
+          display: flex;
+          gap: 16px;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 30px 0 50px;
+          perspective: 1000px;
+        }
+        .craft-card {
+          border-radius: 32px;
+          overflow: hidden;
+          box-shadow: 0 16px 36px -12px rgba(0,0,0,0.14);
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+          position: relative;
+          background: #d8d3c9;
+          flex-shrink: 1;
+        }
+        .craft-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          filter: sepia(0.18) saturate(0.8) contrast(1.02);
+          transition: filter 0.4s ease;
+        }
+        .craft-card:hover img {
+          filter: sepia(0.08) saturate(0.95) contrast(1.02);
+        }
+        /* 7-card row covering full 1300px width */
+        .craft-card-1 { flex: 1 1 140px; max-width: 160px; height: 340px; transform: perspective(800px) rotateY(16deg) scale(0.92); }
+        .craft-card-2 { flex: 1 1 155px; max-width: 180px; height: 380px; transform: perspective(800px) rotateY(10deg) scale(0.96); }
+        .craft-card-3 { flex: 1 1 170px; max-width: 195px; height: 420px; transform: perspective(800px) rotateY(5deg) scale(0.98); }
+        .craft-card-4 { flex: 1 1 200px; max-width: 225px; height: 460px; transform: perspective(800px) scale(1.05); z-index: 5; }
+        .craft-card-5 { flex: 1 1 170px; max-width: 195px; height: 420px; transform: perspective(800px) rotateY(-5deg) scale(0.98); }
+        .craft-card-6 { flex: 1 1 155px; max-width: 180px; height: 380px; transform: perspective(800px) rotateY(-10deg) scale(0.96); }
+        .craft-card-7 { flex: 1 1 140px; max-width: 160px; height: 340px; transform: perspective(800px) rotateY(-16deg) scale(0.92); }
+
+        .craft-footer {
+          margin-top: 40px;
+          text-align: center;
+        }
+        .craft-footer-title {
+          font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+          font-size: clamp(22px, 2.5vw, 32px);
+          font-weight: 500;
+          color: #1a1917;
+          letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 900px) {
+          .craft-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+          .craft-cards-row { justify-content: flex-start; overflow-x: auto; padding-left: 24px; width: 100%; margin-left: 0; }
         }
       `}</style>
 
@@ -533,24 +678,89 @@ export default function ServiceTeamStats() {
         </div>
       </section>
 
-      {/* ── STATS — exact HTML structure from original ── */}
+      {/* ── STATS — cityscape staggered design ── */}
       <section className="stats">
-        <div className="stats-inner">
-          <h3>Eight humans.<br />One <em>tight ship</em>.</h3>
+        <div className="stats-bg">
+          <div className="stats-inner">
 
-          <div className="stat-block">
-            <div className="num" data-count="62"><span>0</span></div>
-            <div className="lbl">Projects shipped</div>
+            <div className="stat-col stat-col-0">
+              <div className="stat-num">
+                <span className="num" data-count="48"><span>0</span></span>
+                <span className="stat-dot" />
+              </div>
+              <div className="stat-lbl">Happy<br />Customers</div>
+            </div>
+
+            <div className="stat-col stat-col-1">
+              <div className="stat-num">
+                <span className="num" data-count="52"><span>0</span></span>
+                <span className="stat-dot" />
+              </div>
+              <div className="stat-lbl">Projects<br />Completed</div>
+            </div>
+
+            <div className="stat-col stat-col-2">
+              <div className="stat-num">
+                <span className="num" data-count="2" data-decimal=".3"><span>0</span></span>
+                <span className="suffix">b</span>
+                <span className="stat-dot" />
+              </div>
+              <div className="stat-lbl">Revenue<br />Generated</div>
+            </div>
+
+            <div className="stat-col stat-col-3">
+              <div className="stat-num">
+                <span className="num" data-count="18"><span>0</span></span>
+                <span className="suffix">m</span>
+                <span className="stat-dot" />
+              </div>
+              <div className="stat-lbl">Awards<br />Achievement</div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── CRAFT GALLERY — warm beige design gallery section ── */}
+      <section className="craft-gallery">
+        <div className="craft-gallery-inner">
+          <div className="craft-header">
+            <h2 className="craft-title">
+              We create the visual<br />world of your dreams<br />together!
+            </h2>
+            <p className="craft-desc">
+              Our studio combines master craftsmanship with cutting-edge 3D visualization.
+              Our team does everything to ensure we create visual experiences that perfectly
+              embody your inner world and vision.
+            </p>
           </div>
 
-          <div className="stat-block">
-            <div className="num" data-count="14"><span>0</span><small>yrs</small></div>
-            <div className="lbl">Combined craft</div>
+          <div className="craft-cards-row">
+            <div className="craft-card craft-card-1">
+              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80&fit=crop" alt="Craft ceramic 1" />
+            </div>
+            <div className="craft-card craft-card-2">
+              <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80&fit=crop" alt="Craft ceramic 2" />
+            </div>
+            <div className="craft-card craft-card-3">
+              <img src="https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?w=600&q=80&fit=crop" alt="Craft ceramic 3" />
+            </div>
+            <div className="craft-card craft-card-4">
+              <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600&q=80&fit=crop" alt="Craft ceramic 4" />
+            </div>
+            <div className="craft-card craft-card-5">
+              <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&q=80&fit=crop" alt="Craft ceramic 5" />
+            </div>
+            <div className="craft-card craft-card-6">
+              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80&fit=crop" alt="Craft ceramic 6" />
+            </div>
+            <div className="craft-card craft-card-7">
+              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80&fit=crop" alt="Craft ceramic 7" />
+            </div>
           </div>
 
-          <div className="stat-block">
-            <div className="num" data-count="9"><span>0</span><small>.4</small></div>
-            <div className="lbl">Avg NPS</div>
+          <div className="craft-footer">
+            <h3 className="craft-footer-title">Have questions?</h3>
           </div>
         </div>
       </section>

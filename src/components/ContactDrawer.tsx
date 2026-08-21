@@ -17,7 +17,9 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     name: "",
     email: "",
     discipline: "Branding",
-    budget: "$10k - $25k",
+    currency: "$",
+    budget: "10k - 25k",
+    customBudget: "",
     message: "",
   });
 
@@ -25,13 +27,44 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     setMounted(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2500);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          onClose();
+          setForm({
+            name: "",
+            email: "",
+            discipline: "Branding",
+            currency: "$",
+            budget: "10k - 25k",
+            customBudget: "",
+            message: "",
+          });
+        }, 2500);
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!mounted) return null;
@@ -138,11 +171,23 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase text-neutral-500 mb-1">
-                      Project Budget
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {["$5k - $10k", "$10k - $25k", "$25k+"].map((b) => (
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-semibold uppercase text-neutral-500">
+                        Project Budget
+                      </label>
+                      <select
+                        value={form.currency}
+                        onChange={(e) => setForm({ ...form, currency: e.target.value })}
+                        className="text-xs bg-transparent border-none text-neutral-600 focus:outline-none cursor-pointer hover:text-neutral-900 transition-colors"
+                      >
+                        <option value="$">USD ($)</option>
+                        <option value="€">EUR (€)</option>
+                        <option value="£">GBP (£)</option>
+                        <option value="₹">INR (₹)</option>
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {["5k - 10k", "10k - 25k", "25k+", "Custom"].map((b) => (
                         <button
                           type="button"
                           key={b}
@@ -152,10 +197,19 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                               : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
                             }`}
                         >
-                          {b}
+                          {b === "Custom" ? b : `${form.currency}${b}`}
                         </button>
                       ))}
                     </div>
+                    {form.budget === "Custom" && (
+                      <input
+                        type="text"
+                        placeholder={`e.g. ${form.currency}50k+`}
+                        value={form.customBudget}
+                        onChange={(e) => setForm({ ...form, customBudget: e.target.value })}
+                        className="mt-2 w-full px-4 py-3 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors"
+                      />
+                    )}
                   </div>
 
                   <div>
@@ -173,10 +227,11 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
 
                   <button
                     type="submit"
-                    className="w-full mt-2 py-3.5 bg-neutral-900 text-white rounded-lg font-medium text-sm hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 shadow-md"
+                    disabled={isSubmitting}
+                    className="w-full mt-2 py-3.5 bg-neutral-900 text-white rounded-lg font-medium text-sm hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    <span>Send Commission Inquiry</span>
-                    <Send className="w-4 h-4" />
+                    <span>{isSubmitting ? "Sending..." : "Send Commission Inquiry"}</span>
+                    {!isSubmitting && <Send className="w-4 h-4" />}
                   </button>
                 </form>
               )}

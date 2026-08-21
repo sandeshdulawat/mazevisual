@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Bebas_Neue, Plus_Jakarta_Sans, Cormorant_Garamond, Inter_Tight } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const kleinCondensed = localFont({
+  src: "../../public/fonts/klein/Klein-Condensed-ExtraBold-trial.ttf",
+  variable: "--font-klein",
+  display: "swap",
+});
 
 const playfair = Playfair_Display({
   variable: "--font-serif",
@@ -48,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} ${cormorant.variable} ${interTight.variable} h-full antialiased`}
+      className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} ${cormorant.variable} ${interTight.variable} ${kleinCondensed.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-black selection:text-white">
         <SmoothScrolling>
