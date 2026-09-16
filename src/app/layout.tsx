@@ -55,9 +55,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} ${cormorant.variable} ${interTight.variable} ${kleinCondensed.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-black selection:text-white">
+      <body suppressHydrationWarning className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-black selection:text-white">
         <SmoothScrolling>
           {children}
         </SmoothScrolling>
