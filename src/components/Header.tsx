@@ -43,6 +43,7 @@ export default function Header({ onContactClick }: HeaderProps) {
       }
     }
   };
+
   return (
     <>
       <MobileMenuOverlay
