@@ -76,14 +76,21 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
         className="absolute inset-0 flex flex-col justify-between pt-6 pb-12 px-6 z-10"
         initial="closed"
         animate={isOpen ? "open" : "closed"}
+        variants={{
+          closed: {
+            opacity: 0,
+            pointerEvents: "none",
+            transition: { duration: 0.3 },
+          },
+          open: {
+            opacity: 1,
+            pointerEvents: "auto",
+            transition: { duration: 0.4, delay: 0.2 },
+          },
+        }}
       >
-        {/* Top Header Bar with Logo and Cross (X) Close Button */}
-        <div className="w-full flex items-center justify-between z-20">
-          <Link href="/" onClick={onClose}>
-            <span className="text-xl font-inter-tight italic font-medium text-white tracking-tight cursor-pointer">
-              Maze.
-            </span>
-          </Link>
+        {/* Top Header Bar with Cross (X) Close Button */}
+        <div className="w-full flex items-center justify-end z-20">
           <button
             onClick={onClose}
             aria-label="Close menu"
