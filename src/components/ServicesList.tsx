@@ -51,7 +51,7 @@ export default function ServicesList() {
                 </div>
 
                 <h3
-                  className="text-2xl md:text-3xl font-medium tracking-tight text-white/95 transition-colors duration-500 group-hover:text-white mt-1 md:mt-0 font-serif-custom md:font-sans"
+                  className="w-full text-center md:text-left text-2xl sm:text-3xl font-medium tracking-tight text-white/95 transition-colors duration-500 group-hover:text-white mt-2 mb-5 md:my-0 font-serif-custom md:font-sans"
                   style={{ textShadow: '0 0 20px rgba(255,255,255,0.2)' }}
                 >
                   {service.title}
