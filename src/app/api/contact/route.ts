@@ -19,11 +19,19 @@ export async function POST(request: Request) {
       ? ['sdulawat.work@gmail.com']
       : ['sdulawat.work@gmail.com', 'sdulawat9174799616@gmail.com'];
 
+    const apiKey = process.env.RESEND_API_KEY?.trim()?.replace(/^["']|["']$/g, '');
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "RESEND_API_KEY is missing in Netlify environment variables. Please add it in Netlify settings." },
+        { status: 500 }
+      );
+    }
+
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         from: fromEmail,
