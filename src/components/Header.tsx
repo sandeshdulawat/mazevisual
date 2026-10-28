@@ -75,10 +75,10 @@ export default function Header({ onContactClick }: HeaderProps) {
         </nav>
 
         {/* Right Column: CTA Button / Mobile Menu */}
-        <div className="flex items-center justify-end shrink-0 gap-2 md:gap-0 w-auto md:w-[140px]">
+        <div className="flex items-center justify-end shrink-0 w-auto md:w-[140px]">
           <button
             onClick={onContactClick}
-            className="rounded-lg bg-white/95 text-black px-3 py-1.5 md:px-4 md:py-1.5 text-xs md:text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm cursor-pointer"
+            className="hidden md:block rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm cursor-pointer"
           >
             Get In Touch
           </button>
