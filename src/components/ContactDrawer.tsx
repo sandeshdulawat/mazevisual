@@ -10,6 +10,67 @@ interface ContactDrawerProps {
   onClose: () => void;
 }
 
+const CURRENCY_CONFIG: Record<
+  string,
+  {
+    symbol: string;
+    label: string;
+    namePlaceholder: string;
+    emailPlaceholder: string;
+    tiers: { id: string; display: string }[];
+    customPlaceholder: string;
+  }
+> = {
+  "₹": {
+    symbol: "₹",
+    label: "INR (₹)",
+    namePlaceholder: "e.g. Aarav Sharma",
+    emailPlaceholder: "aarav@company.com",
+    tiers: [
+      { id: "tier-1", display: "₹5k - ₹20k" },
+      { id: "tier-2", display: "₹20k - ₹50k" },
+      { id: "tier-3", display: "₹50k - ₹1.5L" },
+    ],
+    customPlaceholder: "e.g. ₹2,00,000+",
+  },
+  "$": {
+    symbol: "$",
+    label: "USD ($)",
+    namePlaceholder: "e.g. Julian Vance",
+    emailPlaceholder: "julian@company.com",
+    tiers: [
+      { id: "tier-1", display: "$60 - $250" },
+      { id: "tier-2", display: "$250 - $600" },
+      { id: "tier-3", display: "$600 - $1.8k" },
+    ],
+    customPlaceholder: "e.g. $2,500+",
+  },
+  "€": {
+    symbol: "€",
+    label: "EUR (€)",
+    namePlaceholder: "e.g. Lucas Müller",
+    emailPlaceholder: "lucas@company.eu",
+    tiers: [
+      { id: "tier-1", display: "€55 - €220" },
+      { id: "tier-2", display: "€220 - €550" },
+      { id: "tier-3", display: "€550 - €1.6k" },
+    ],
+    customPlaceholder: "e.g. €2,200+",
+  },
+  "£": {
+    symbol: "£",
+    label: "GBP (£)",
+    namePlaceholder: "e.g. Oliver Davies",
+    emailPlaceholder: "oliver@company.co.uk",
+    tiers: [
+      { id: "tier-1", display: "£50 - £180" },
+      { id: "tier-2", display: "£180 - £450" },
+      { id: "tier-3", display: "£450 - £1.4k" },
+    ],
+    customPlaceholder: "e.g. £2,000+",
+  },
+};
+
 export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
   const [submitted, setSubmitted] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -17,8 +78,8 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     name: "",
     email: "",
     discipline: "Branding",
-    currency: "$",
-    budget: "10k - 25k",
+    currency: "₹",
+    selectedTier: "tier-1",
     customBudget: "",
     message: "",
   });
@@ -33,13 +94,20 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const currentConfig = CURRENCY_CONFIG[form.currency] || CURRENCY_CONFIG["₹"];
+    const currentTier = currentConfig.tiers.find((t) => t.id === form.selectedTier);
+    const budgetValue = form.selectedTier === "custom" ? "Custom" : (currentTier ? currentTier.display : "₹5k - ₹20k");
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          budget: budgetValue,
+        }),
       });
 
       if (response.ok) {
@@ -51,8 +119,8 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
             name: "",
             email: "",
             discipline: "Branding",
-            currency: "$",
-            budget: "10k - 25k",
+            currency: "₹",
+            selectedTier: "tier-1",
             customBudget: "",
             message: "",
           });
@@ -66,6 +134,8 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
       setIsSubmitting(false);
     }
   };
+
+  const currentConfig = CURRENCY_CONFIG[form.currency] || CURRENCY_CONFIG["₹"];
 
   if (!mounted) return null;
 
@@ -132,7 +202,7 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                     <input
                       required
                       type="text"
-                      placeholder="e.g. Julian Vance"
+                      placeholder={currentConfig.namePlaceholder}
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full px-4 py-3 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors"
@@ -146,7 +216,7 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                     <input
                       required
                       type="email"
-                      placeholder="julian@company.com"
+                      placeholder={currentConfig.emailPlaceholder}
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full px-4 py-3 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors"
@@ -178,33 +248,45 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
                       <select
                         value={form.currency}
                         onChange={(e) => setForm({ ...form, currency: e.target.value })}
-                        className="text-xs bg-transparent border-none text-neutral-600 focus:outline-none cursor-pointer hover:text-neutral-900 transition-colors"
+                        className="text-xs bg-transparent border-none text-neutral-700 font-medium focus:outline-none cursor-pointer hover:text-neutral-900 transition-colors"
                       >
+                        <option value="₹">INR (₹)</option>
                         <option value="$">USD ($)</option>
                         <option value="€">EUR (€)</option>
                         <option value="£">GBP (£)</option>
-                        <option value="₹">INR (₹)</option>
                       </select>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      {["5k - 10k", "10k - 25k", "25k+", "Custom"].map((b) => (
+                      {currentConfig.tiers.map((t) => (
                         <button
                           type="button"
-                          key={b}
-                          onClick={() => setForm({ ...form, budget: b })}
-                          className={`py-2 text-xs rounded-md border font-medium transition-colors ${form.budget === b
+                          key={t.id}
+                          onClick={() => setForm({ ...form, selectedTier: t.id })}
+                          className={`py-2 text-xs rounded-md border font-medium transition-colors ${
+                            form.selectedTier === t.id
                               ? "bg-neutral-900 text-white border-neutral-900"
                               : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
-                            }`}
+                          }`}
                         >
-                          {b === "Custom" ? b : `${form.currency}${b}`}
+                          {t.display}
                         </button>
                       ))}
+                      <button
+                        type="button"
+                        onClick={() => setForm({ ...form, selectedTier: "custom" })}
+                        className={`py-2 text-xs rounded-md border font-medium transition-colors ${
+                          form.selectedTier === "custom"
+                            ? "bg-neutral-900 text-white border-neutral-900"
+                            : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50"
+                        }`}
+                      >
+                        Custom
+                      </button>
                     </div>
-                    {form.budget === "Custom" && (
+                    {form.selectedTier === "custom" && (
                       <input
                         type="text"
-                        placeholder={`e.g. ${form.currency}50k+`}
+                        placeholder={currentConfig.customPlaceholder}
                         value={form.customBudget}
                         onChange={(e) => setForm({ ...form, customBudget: e.target.value })}
                         className="mt-2 w-full px-4 py-3 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-neutral-900 transition-colors"

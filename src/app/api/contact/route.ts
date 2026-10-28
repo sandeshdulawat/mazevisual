@@ -5,7 +5,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, discipline, currency, budget, customBudget, message } = body;
 
-    const finalBudget = budget === "Custom" ? customBudget : `${currency}${budget}`;
+    const finalBudget =
+      budget === "Custom"
+        ? (customBudget || "Custom")
+        : (budget && currency && budget.includes(currency) ? budget : `${currency || ""}${budget || ""}`);
 
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
