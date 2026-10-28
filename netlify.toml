@@ -1,0 +1,5 @@
+# Netlify Configuration for Next.js App
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "RESEND_API_KEY"
+  SECRETS_SCAN_OMIT_PATHS = ".next/**"
