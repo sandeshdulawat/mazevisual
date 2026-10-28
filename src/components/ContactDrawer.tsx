@@ -126,10 +126,11 @@ export default function ContactDrawer({ isOpen, onClose }: ContactDrawerProps) {
           });
         }, 2500);
       } else {
-        alert("Failed to send message. Please try again.");
+        const errorData = await response.json().catch(() => null);
+        alert(errorData?.error || "Failed to send message. Please try again.");
       }
-    } catch (error) {
-      alert("An error occurred. Please try again.");
+    } catch (error: any) {
+      alert(error?.message || "An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

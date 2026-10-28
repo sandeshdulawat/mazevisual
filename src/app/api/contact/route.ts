@@ -10,6 +10,15 @@ export async function POST(request: Request) {
         ? (customBudget || "Custom")
         : (budget && currency && budget.includes(currency) ? budget : `${currency || ""}${budget || ""}`);
 
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const isTestingDomain = fromEmail.includes('resend.dev');
+
+    // Resend's onboarding@resend.dev test domain only allows sending to the account owner's email.
+    // If a custom verified domain is used in RESEND_FROM_EMAIL, multiple recipients are allowed.
+    const toEmails = isTestingDomain
+      ? ['sdulawat.work@gmail.com']
+      : ['sdulawat.work@gmail.com', 'sdulawat9174799616@gmail.com'];
+
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -17,8 +26,9 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'onboarding@resend.dev',
-        to: ['sdulawat.work@gmail.com', 'sdulawat9174799616@gmail.com'],
+        from: fromEmail,
+        to: toEmails,
+        reply_to: email,
         subject: `New Commission Inquiry from ${name}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -41,9 +51,11 @@ export async function POST(request: Request) {
     if (res.ok) {
       return NextResponse.json(data);
     } else {
-      return NextResponse.json({ error: data.message }, { status: 400 });
+      console.error("Resend API error:", data);
+      return NextResponse.json({ error: data.message || 'Failed to send email' }, { status: res.status || 400 });
     }
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+  } catch (error: any) {
+    console.error("Contact API error:", error);
+    return NextResponse.json({ error: error?.message || 'Failed to send email' }, { status: 500 });
   }
 }
