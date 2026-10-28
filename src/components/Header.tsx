@@ -26,6 +26,24 @@ export default function Header({ onContactClick }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === "/" && window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.pushState(null, "", "/");
+      return;
+    }
+    if (href.startsWith("/#") && window.location.pathname === "/") {
+      e.preventDefault();
+      const targetId = href.replace("/#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
+
   return (
     <>
       <MobileMenuOverlay
@@ -48,7 +66,7 @@ export default function Header({ onContactClick }: HeaderProps) {
         >
           {/* Left Column: Logo */}
           <div className="flex items-center shrink-0 w-auto md:w-[140px]">
-            <Link href="/">
+            <Link href="/" onClick={(e) => handleNavClick(e, "/")}>
               <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap pl-2 md:pl-4 hover:text-white/80 transition-colors cursor-pointer">
                 Maze visual.
               </span>
@@ -57,19 +75,19 @@ export default function Header({ onContactClick }: HeaderProps) {
 
           {/* Center Column: Links (Hidden on small screens) */}
           <nav className={`hidden md:flex flex-1 items-center justify-center transition-all duration-500 ${isScrolled ? "gap-5" : "gap-5 lg:gap-5"} text-white/80 text-[13px] font-inter-tight tracking-wide`}>
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" onClick={(e) => handleNavClick(e, "/")} className="hover:text-white transition-colors">
               Home
             </Link>
-            <Link href="/#services" className="hover:text-white transition-colors">
+            <Link href="/#services" onClick={(e) => handleNavClick(e, "/#services")} className="hover:text-white transition-colors">
               Services
             </Link>
-            <Link href="/#work" className="hover:text-white transition-colors">
+            <Link href="/#work" onClick={(e) => handleNavClick(e, "/#work")} className="hover:text-white transition-colors">
               Work
             </Link>
-            <Link href="/#studio" className="hover:text-white transition-colors">
+            <Link href="/#studio" onClick={(e) => handleNavClick(e, "/#studio")} className="hover:text-white transition-colors">
               Studio
             </Link>
-            <Link href="/#insights" className="hover:text-white transition-colors">
+            <Link href="/#insights" onClick={(e) => handleNavClick(e, "/#insights")} className="hover:text-white transition-colors">
               Insights
             </Link>
           </nav>

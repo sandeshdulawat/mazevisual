@@ -17,22 +17,30 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black block">
       {/* Device Height Hero Section */}
-      <Hero />
+      <div id="home">
+        <Hero />
+      </div>
 
       <div className="relative z-10 bg-black">
         {/* Studio Overview */}
-        <AboutSection />
+        <div id="studio" className="scroll-mt-20">
+          <AboutSection />
+        </div>
 
         {/* What We Do (Services List) */}
-        <section className="w-full bg-black">
+        <section id="services" className="w-full bg-black scroll-mt-20">
           <ServicesList />
         </section>
 
         {/* Scroll-driven Featured Work */}
-        <FeaturedWork />
+        <div id="work" className="scroll-mt-20">
+          <FeaturedWork />
+        </div>
 
-        {/* Testimonials */}
-        <Testimonials />
+        {/* Testimonials / Insights */}
+        <div id="insights" className="scroll-mt-20">
+          <Testimonials />
+        </div>
 
         {/* Stats / Metrics */}
         <StatsSection />

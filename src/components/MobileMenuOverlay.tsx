@@ -26,6 +26,30 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
 
   const ease = cubicBezier(0.55, 0, 0.1, 1);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    document.body.style.overflow = "unset";
+    onClose();
+
+    if (href === "/" && window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.pushState(null, "", "/");
+      return;
+    }
+
+    if (href.startsWith("/#") && window.location.pathname === "/") {
+      e.preventDefault();
+      const targetId = href.replace("/#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        setTimeout(() => {
+          elem.scrollIntoView({ behavior: "smooth" });
+        }, 120);
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
+
   return (
     <div
       className={`md:hidden fixed inset-0 z-[100] ${isOpen ? "pointer-events-auto" : "pointer-events-none"
@@ -116,18 +140,21 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
               },
             }}
           >
-            {["Home", "Services", "Work", "Studio", "Insights"].map((item) => (
-              <motion.li key={item} className="overflow-hidden">
-                <Link
-                  href={item === "Home" ? "/" : `/#${item.toLowerCase()}`}
-                  onClick={onClose}
-                  className="text-3xl sm:text-4xl font-inter-tight font-medium tracking-tight text-white hover:text-white/60 transition-colors inline-block relative group"
-                >
-                  {item}
-                  <span className="absolute -bottom-1.5 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300 ease-out" />
-                </Link>
-              </motion.li>
-            ))}
+            {["Home", "Services", "Work", "Studio", "Insights"].map((item) => {
+              const href = item === "Home" ? "/" : `/#${item.toLowerCase()}`;
+              return (
+                <motion.li key={item} className="overflow-hidden">
+                  <Link
+                    href={href}
+                    onClick={(e) => handleNavClick(e, href)}
+                    className="text-3xl sm:text-4xl font-inter-tight font-medium tracking-tight text-white hover:text-white/60 transition-colors inline-block relative group"
+                  >
+                    {item}
+                    <span className="absolute -bottom-1.5 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300 ease-out" />
+                  </Link>
+                </motion.li>
+              );
+            })}
           </motion.ul>
         </div>
 
