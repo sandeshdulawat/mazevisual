@@ -28,9 +28,8 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
 
   return (
     <div
-      className={`md:hidden fixed inset-0 z-[100] ${
-        isOpen ? "pointer-events-auto" : "pointer-events-none"
-      } overflow-hidden`}
+      className={`md:hidden fixed inset-0 z-[100] ${isOpen ? "pointer-events-auto" : "pointer-events-none"
+        } overflow-hidden`}
     >
       {/* --- Diagonal Background Layers --- */}
       {/* Top Background */}
@@ -45,7 +44,7 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
           }}
         />
       </div>
-      
+
       {/* Middle Background */}
       <div className="absolute w-[300vw] h-[60vh]" style={{ top: "20vh", left: "-100vw", transform: "rotate(-45deg)", transformOrigin: "center" }}>
         <motion.div
@@ -153,8 +152,8 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
           </button>
 
           <div className="flex flex-col items-center text-xs text-neutral-400 gap-1 text-center">
-            <a href="mailto:contact@mazevisual.com" className="hover:text-white transition-colors">
-              contact@mazevisual.com
+            <a href="mailto:sdulawat.work@gmail.com" className="hover:text-white transition-colors">
+              sdulawat.work@gmail.com
             </a>
             <span className="text-neutral-500 text-[11px]">PNQ, IND &bull; Global Studio</span>
           </div>

@@ -61,10 +61,10 @@ export default function Footer() {
             <span className="hover:text-neutral-300 cursor-pointer">Terms of Service</span>
             <span>&bull;</span>
             <a
-              href="mailto:contact@mazevisual.com"
+              href="mailto:sdulawat.work@gmail.com"
               className="hover:text-white transition-colors flex items-center gap-0.5"
             >
-              <span>contact@mazevisual.com</span>
+              <span>sdulawat.work@gmail.com</span>
               <ArrowUpRight className="w-3 h-3" />
             </a>
           </div>
