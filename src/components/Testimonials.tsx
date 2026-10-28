@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+
 const baseTestimonials = [
   {
     id: 1,
-    quote: "\"An excellent job bringing our vision to life. Their thorough research and insightful approach provided clarity and understand what we truly need. I highly recommend his team for your branding needs.\"",
+    quote: "\"Maze Visual did an excellent job bringing our vision to life. Their thoughtful research, creative insights, and strategic approach helped us clarify our brand direction and understand what our business truly needed. We highly recommend their team for branding and creative solutions.\"",
     name: "SupaStellar",
     title: "Client",
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800",
@@ -15,7 +16,7 @@ const baseTestimonials = [
   },
   {
     id: 2,
-    quote: "\"I can't express enough gratitude to Bhini and Preet, the force behind Redo. They've played a pivotal role in organically growing our brands, bringing a level of dedication and expertise that feels like family.\"",
+    quote: "\"Working with Maze Visual has been a valuable creative partnership. Their dedication, attention to detail, and ability to translate ideas into meaningful brand experiences made the collaboration stand out. Their team brings a thoughtful, committed approach to every stage of the process.\"",
     name: "Manen C.",
     title: "Founder, Creative Director @ Typezero",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
@@ -23,11 +24,35 @@ const baseTestimonials = [
   },
   {
     id: 3,
-    quote: "\"Working with them was a game changer for our digital presence. The attention to detail and design quality exceeded our expectations. We couldn't be happier with the results.\"",
+    quote: "\"Maze Visual brought a fresh perspective to our digital presence. Their focus on visual quality, thoughtful design, and the finer details helped create a more polished and engaging experience. The team's creative approach made the entire collaboration worthwhile.\"",
     name: "Monk",
     title: "Spiritual Leader",
     image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=800",
     logo: "ISKCON"
+  },
+  {
+    id: 4,
+    quote: "\"Maze Visual brought a fresh and strategic perspective to our project. Their ability to understand our goals and turn ideas into thoughtful, visually compelling solutions made the collaboration a positive experience. Their attention to detail truly stood out.\"",
+    name: "Aarav Mehta",
+    title: "Founder & Business Partner",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800",
+    logo: "Creative Partner"
+  },
+  {
+    id: 5,
+    quote: "\"What impressed us most about Maze Visual was their balance of creativity and functionality. They approached our requirements with care, maintained a clear design direction, and focused on delivering work that felt both purposeful and polished.\"",
+    name: "Ananya Sharma",
+    title: "Brand & Marketing Director",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+    logo: "Brand Partner"
+  },
+  {
+    id: 6,
+    quote: "\"Collaborating with Maze Visual was an inspiring experience. Their thoughtful communication, creative problem-solving, and commitment to quality helped bring our ideas together into a cohesive visual direction. We appreciated their collaborative mindset throughout the project.\"",
+    name: "Rohan Kapoor",
+    title: "Creative Director",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
+    logo: "Design Partner"
   }
 ];
 
