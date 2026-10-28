@@ -5,62 +5,51 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 
-const baseTestimonials = [
+const testimonials = [
   {
     id: 1,
-    quote: "\"Maze Visual did an excellent job bringing our vision to life. Their thoughtful research, creative insights, and strategic approach helped us clarify our brand direction and understand what our business truly needed. We highly recommend their team for branding and creative solutions.\"",
-    name: "SupaStellar",
-    title: "Client",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800",
-    logo: "SupaStellar"
+    quote: "\"Maze Visual brought a fresh perspective to our digital presence. Their focus on visual quality, thoughtful design, and the finer details helped create a more polished and engaging experience. Their creative approach and commitment to quality made the collaboration worthwhile.\"",
+    name: "Kabir Malhotra",
+    title: "Business Owner",
+    image: "https://tse1.mm.bing.net/th/id/OIP.Dfib3JjY1S34wDXu4wZwxwHaHj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+    logo: "Kabir Malhotra"
   },
   {
     id: 2,
-    quote: "\"Working with Maze Visual has been a valuable creative partnership. Their dedication, attention to detail, and ability to translate ideas into meaningful brand experiences made the collaboration stand out. Their team brings a thoughtful, committed approach to every stage of the process.\"",
-    name: "Manen C.",
-    title: "Founder, Creative Director @ Typezero",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
-    logo: "Typezero"
+    quote: "\"Working with Maze Visual was a valuable creative experience. Their dedication, attention to detail, and ability to translate ideas into meaningful brand experiences made the collaboration stand out. The team brought a thoughtful, committed approach to every stage of the project.\"",
+    name: "Riya Kapoor",
+    title: "Founder & Creative Director",
+    image: "https://nitcriya.pro/assets/img/profile/riyyyyaaa.png",
+    logo: "Riya Kapoor"
   },
   {
     id: 3,
-    quote: "\"Maze Visual brought a fresh perspective to our digital presence. Their focus on visual quality, thoughtful design, and the finer details helped create a more polished and engaging experience. The team's creative approach made the entire collaboration worthwhile.\"",
-    name: "Monk",
-    title: "Spiritual Leader",
-    image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=800",
-    logo: "ISKCON"
-  },
-  {
-    id: 4,
     quote: "\"Maze Visual brought a fresh and strategic perspective to our project. Their ability to understand our goals and turn ideas into thoughtful, visually compelling solutions made the collaboration a positive experience. Their attention to detail truly stood out.\"",
     name: "Aarav Mehta",
     title: "Founder & Business Partner",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800",
+    image: "https://properchoice.ae/wp-content/uploads/2026/05/Aarav-Mehta-Teacher-Properchoice.webp",
     logo: "Creative Partner"
   },
   {
-    id: 5,
+    id: 4,
     quote: "\"What impressed us most about Maze Visual was their balance of creativity and functionality. They approached our requirements with care, maintained a clear design direction, and focused on delivering work that felt both purposeful and polished.\"",
     name: "Ananya Sharma",
     title: "Brand & Marketing Director",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
+    image: "https://tse1.mm.bing.net/th/id/OIP.Qs0Tpb67j9Hy8xJRegL6YQHaKU?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
     logo: "Brand Partner"
   },
   {
-    id: 6,
+    id: 5,
     quote: "\"Collaborating with Maze Visual was an inspiring experience. Their thoughtful communication, creative problem-solving, and commitment to quality helped bring our ideas together into a cohesive visual direction. We appreciated their collaborative mindset throughout the project.\"",
     name: "Rohan Kapoor",
     title: "Creative Director",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
+    image: "https://tse3.mm.bing.net/th/id/OIP.q0rcAYI66qSWhmrwwQB6qQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
     logo: "Design Partner"
   }
 ];
 
-// Duplicate to have enough items to show a nice dot pagination like the screenshot
-const testimonials = [...baseTestimonials, ...baseTestimonials, ...baseTestimonials, baseTestimonials[0]];
-
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -204,11 +193,13 @@ export default function Testimonials() {
 
         {/* Pagination Dots */}
         <div className="mt-12 flex items-center justify-center">
-          <div className="bg-[#222] rounded-full px-2 py-1 flex items-center gap-2.5">
+          <div className="bg-[#222] rounded-full px-3 py-1.5 flex items-center gap-2">
             {testimonials.map((_, index) => (
-              <div
+              <button
                 key={index}
-                className={`w-1 h-1 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-white scale-125" : "bg-[#555]"
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${index === currentIndex ? "bg-white scale-125" : "bg-[#555] hover:bg-neutral-300"
                   }`}
               />
             ))}
