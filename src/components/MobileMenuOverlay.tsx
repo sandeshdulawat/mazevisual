@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 
 interface MobileMenuOverlayProps {
   isOpen: boolean;
@@ -74,11 +74,27 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
 
       {/* --- Menu Links & Action --- */}
       <motion.div
-        className="absolute inset-0 flex flex-col items-center justify-between py-24 px-8 z-10"
+        className="absolute inset-0 flex flex-col justify-between pt-6 pb-12 px-6 z-10"
         initial="closed"
         animate={isOpen ? "open" : "closed"}
       >
-        <div className="w-full flex-1 flex flex-col items-center justify-center">
+        {/* Top Header Bar with Logo and Cross (X) Close Button */}
+        <div className="w-full flex items-center justify-between z-20">
+          <Link href="/" onClick={onClose}>
+            <span className="text-xl font-inter-tight italic font-medium text-white tracking-tight cursor-pointer">
+              Maze.
+            </span>
+          </Link>
+          <button
+            onClick={onClose}
+            aria-label="Close menu"
+            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 flex items-center justify-center text-white transition-all cursor-pointer border border-white/10 shadow-lg"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="w-full flex-1 flex flex-col items-center justify-center py-6">
           <motion.ul
             className="flex flex-col items-center justify-center gap-6 w-full"
             variants={{

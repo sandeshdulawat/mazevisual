@@ -16,7 +16,7 @@ export default function AnimatedMenuTrigger({
   isOpen,
   onClick,
   menuColor = "bg-white",
-  closeColor = "bg-[#222222]",
+  closeColor = "bg-white",
 }: AnimatedMenuTriggerProps) {
   return (
     <button
