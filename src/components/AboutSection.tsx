@@ -81,8 +81,8 @@ export default function AboutSection() {
     <section ref={containerRef} className="relative w-full min-h-screen bg-black py-24 md:py-32 flex flex-col items-center justify-center px-6 overflow-hidden">
 
       {/* Main Text */}
-      <div className="relative z-10 max-w-7xl text-center mb-32">
-        <p className="font-cormorant text-3xl md:text-5xl lg:text-6xl text-[#444] leading-[1.1] font-normal">
+      <div className="relative z-10 max-w-7xl text-center mb-20 md:mb-32 px-2">
+        <p className="font-cormorant text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-[#444] leading-[1.15] md:leading-[1.1] font-normal">
           <span className="reveal-word">We</span> <span className="reveal-word">craft</span> <span className="reveal-word">brand</span> <span className="reveal-word">identities,</span> <span className="reveal-word">narratives,</span> <span className="reveal-word">and</span> <span className="reveal-word">digital</span><br className="hidden md:block" />
           <span className="reveal-word">experiences</span> <span className="reveal-word">that</span> <span className="reveal-word">keep</span> <span className="reveal-word">up</span> <span className="reveal-word">with</span> <span className="reveal-word">your</span> <span className="reveal-word">ambition.</span><br className="hidden md:block" />
           <span className="reveal-word">So</span> <span className="reveal-word">you</span> <span className="reveal-word">can</span> <span className="reveal-word">focus</span> <span className="reveal-word">on</span> <span className="reveal-word">building</span> <span className="reveal-word">what</span> <span className="reveal-word">matters,</span><br className="hidden md:block" />
@@ -94,12 +94,12 @@ export default function AboutSection() {
       </div>
 
       {/* Bottom Marquee Area */}
-      <div className="absolute bottom-12 left-0 w-full flex items-center z-10 max-w-screen-2xl mx-auto px-4 md:px-12">
+      <div className="absolute bottom-6 md:bottom-12 left-0 w-full flex flex-col md:flex-row items-center z-10 max-w-screen-2xl mx-auto px-4 md:px-12 gap-3 md:gap-0">
 
         {/* Static Left Part: Trusted By */}
-        <div className="flex items-center gap-4 pr-8 border-r border-neutral-800 shrink-0 bg-black/80 backdrop-blur-sm z-20">
+        <div className="flex items-center gap-3 md:gap-4 pr-0 md:pr-8 border-b md:border-b-0 md:border-r border-neutral-800/80 pb-2 md:pb-0 shrink-0 bg-black/80 backdrop-blur-sm z-20">
           <LeftBranch />
-          <div className="flex flex-col text-neutral-400 text-sm font-sans leading-tight font-medium text-center">
+          <div className="flex flex-col text-neutral-400 text-xs md:text-sm font-sans leading-tight font-medium text-center">
             <span>Trusted by 60+</span>
             <span>Organizations</span>
           </div>
@@ -107,11 +107,11 @@ export default function AboutSection() {
         </div>
 
         {/* Marquee Right Part */}
-        <div className="flex-1 overflow-hidden relative flex items-center ml-8" style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}>
-          <div className="animate-marquee-left flex items-center gap-24 py-4 pr-24 mix-blend-screen opacity-80">
+        <div className="w-full flex-1 overflow-hidden relative flex items-center md:ml-8" style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}>
+          <div className="animate-marquee-left flex items-center gap-16 md:gap-24 py-2 md:py-4 pr-16 md:pr-24 mix-blend-screen opacity-80">
             {/* Render 3 identical sets to ensure infinite seamless scrolling */}
             {[...brandLogos, ...brandLogos, ...brandLogos].map((logo, index) => (
-              <div key={index} className="flex-shrink-0 grayscale">
+              <div key={index} className="flex-shrink-0 grayscale scale-90 md:scale-100">
                 {logo}
               </div>
             ))}

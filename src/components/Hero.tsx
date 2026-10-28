@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import Header from "./Header";
 import ProjectModal from "./ProjectModal";
 import ContactDrawer from "./ContactDrawer";
@@ -10,6 +11,21 @@ import { CardItem } from "./PortfolioCard";
 export default function Hero() {
   const [selectedItem, setSelectedItem] = useState<CardItem | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [timeStr, setTimeStr] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+        setTimeStr(now.toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }));
+      } catch {
+        setTimeStr("11:30 PM");
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 800], [1, 0.9]);
@@ -52,22 +68,39 @@ export default function Hero() {
           </div>
 
         {/* Centered Hero Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full mt-4 max-w-5xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full mt-2 md:mt-4 max-w-5xl mx-auto">
           <h1
-            className="font-inter-tight text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5.5rem] leading-[1.1] tracking-tight mb-4 text-white font-medium hero-title"
+            className="font-inter-tight text-3xl sm:text-5xl md:text-[4.5rem] lg:text-[5.5rem] leading-[1.1] tracking-tight mb-4 text-white font-medium hero-title"
             style={{ textShadow: '0 0 30px rgba(255,255,255,0.4), 0 0 60px rgba(255,255,255,0.2)' }}
           >
             We Don&apos;t Just Design.<br />
             We Define Experiences.
           </h1>
-          <p className="text-base md:text-[17px] text-white/90 font-inter-tight tracking-wide mt-2 hero-subtitle">
+          <p className="text-sm sm:text-base md:text-[17px] text-white/90 font-inter-tight tracking-wide mt-1 md:mt-2 hero-subtitle max-w-xl">
             Branding • Digital • Architecture • Interiors • Visualization
           </p>
+
+          {/* Action CTAs */}
+          <div className="mt-7 md:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
+            <button
+              onClick={() => setIsContactOpen(true)}
+              className="w-full sm:w-auto px-7 py-3 rounded-full bg-white text-black font-inter-tight font-medium text-sm hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.35)] cursor-pointer"
+            >
+              <span>Get in touch</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+            <a
+              href="#services"
+              className="w-full sm:w-auto px-6 py-3 rounded-full border border-white/20 text-white/90 font-inter-tight font-medium text-sm hover:bg-white/10 transition-all flex items-center justify-center cursor-pointer"
+            >
+              Explore Services
+            </a>
+          </div>
         </div>
 
         {/* Bottom Elements */}
-        <div className="absolute bottom-8 left-0 right-0 px-8 md:px-12 flex justify-between items-end z-10 text-[11px] md:text-xs text-white/60 font-inter-tight tracking-[0.05em] uppercase hero-bottom">
-          <div>11:10 PM</div>
+        <div className="absolute bottom-6 md:bottom-8 left-0 right-0 px-6 sm:px-8 md:px-12 flex justify-between items-end z-10 text-[11px] md:text-xs text-white/60 font-inter-tight tracking-[0.05em] uppercase hero-bottom">
+          <div>{timeStr || "PNQ, IND"}</div>
           <div className="hidden md:block">Scroll to Explore</div>
           <div>PNQ, IND</div>
         </div>

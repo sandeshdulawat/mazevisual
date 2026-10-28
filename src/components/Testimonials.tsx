@@ -75,7 +75,7 @@ export default function Testimonials() {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative w-full max-w-[100vw] h-[450px] md:h-[320px] flex items-center justify-center">
+        <div className="relative w-full max-w-[100vw] h-[360px] sm:h-[340px] md:h-[320px] flex items-center justify-center">
           {testimonials.map((t, index) => {
             const length = testimonials.length;
             let position = "hidden";
@@ -130,24 +130,33 @@ export default function Testimonials() {
                 initial={false}
                 animate={{ x, scale, opacity, zIndex }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute w-[92%] md:w-[750px] h-full p-5 md:p-6 rounded-2xl bg-[#101010] border border-white/[0.05] flex flex-col md:flex-row items-center gap-6 md:gap-8 shadow-2xl"
+                className="absolute w-[92%] md:w-[750px] h-full p-5 md:p-6 rounded-2xl bg-[#101010] border border-white/[0.05] flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 shadow-2xl overflow-hidden"
                 style={{
                   backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0)',
                   backgroundSize: '24px 24px'
                 }}
               >
-                {/* Image */}
-                <div className="w-full md:w-[30%] aspect-[4/5] md:aspect-[3/4] md:h-full rounded-xl overflow-hidden shrink-0">
-                  <img src={t.image} alt={t.name} className="w-full h-full object-cover grayscale" />
+                {/* Author Avatar / Desktop Column */}
+                <div className="w-full md:w-[30%] flex md:block items-center gap-3.5 md:h-full shrink-0">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-full md:h-full md:aspect-[3/4] rounded-full md:rounded-xl overflow-hidden shrink-0 border border-white/10 md:border-none">
+                    <img src={t.image} alt={t.name} className="w-full h-full object-cover grayscale" />
+                  </div>
+                  {/* Author info shown inline on mobile for clean hierarchy */}
+                  <div className="flex flex-col md:hidden">
+                    <span className="text-white font-bold text-sm">{t.name}</span>
+                    <span className="text-neutral-400 text-xs">{t.title}</span>
+                    <span className="text-white/80 font-bold text-xs mt-0.5">{t.logo}</span>
+                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="w-full md:w-[70%] flex flex-col h-full justify-between py-1 md:py-2 relative">
-                  <p className="text-neutral-300 text-[14px] md:text-[15px] leading-[1.6] font-sans font-normal">
+                <div className="w-full md:w-[70%] flex flex-col justify-between flex-1 py-1 md:py-2 relative">
+                  <p className="text-neutral-300 text-[13px] sm:text-[14px] md:text-[15px] leading-[1.6] font-sans font-normal">
                     {t.quote}
                   </p>
 
-                  <div className="flex items-end justify-between mt-6 md:mt-auto">
+                  {/* Desktop Author Footer */}
+                  <div className="hidden md:flex items-end justify-between mt-auto pt-4">
                     <div className="flex flex-col">
                       <span className="text-white font-bold text-sm md:text-[15px]">{t.name}</span>
                       <span className="text-neutral-500 text-xs mt-1">{t.title}</span>
@@ -159,10 +168,10 @@ export default function Testimonials() {
                   </div>
                 </div>
 
-                {/* Overlays for Previous/Next clicking */}
+                {/* Overlays for Previous/Next clicking (desktop) */}
                 {isPrev && (
                   <div
-                    className="absolute inset-0 z-20 cursor-pointer flex items-center justify-end pr-8 md:pr-12"
+                    className="hidden md:flex absolute inset-0 z-20 cursor-pointer items-center justify-end pr-8 md:pr-12"
                     onClick={handlePrev}
                   >
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-[#2a2a2a] transition-all border border-white/5 shadow-xl">
@@ -173,7 +182,7 @@ export default function Testimonials() {
 
                 {isNext && (
                   <div
-                    className="absolute inset-0 z-20 cursor-pointer flex items-center justify-start pl-8 md:pl-12"
+                    className="hidden md:flex absolute inset-0 z-20 cursor-pointer items-center justify-start pl-8 md:pl-12"
                     onClick={handleNext}
                   >
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center text-white hover:bg-[#2a2a2a] transition-all border border-white/5 shadow-xl">
@@ -182,7 +191,6 @@ export default function Testimonials() {
                   </div>
                 )}
 
-                {/* Fallback invisible click area if it's the active one (maybe to pause auto-play later) */}
                 {isActive && (
                   <div className="absolute inset-0 z-0 pointer-events-none" />
                 )}
@@ -191,19 +199,36 @@ export default function Testimonials() {
           })}
         </div>
 
-        {/* Pagination Dots */}
-        <div className="mt-12 flex items-center justify-center">
+        {/* Pagination & Mobile Arrows */}
+        <div className="mt-8 md:mt-12 flex items-center justify-center gap-3">
+          <button
+            onClick={handlePrev}
+            aria-label="Previous testimonial"
+            className="md:hidden w-8 h-8 rounded-full bg-[#1c1c1c] flex items-center justify-center text-white hover:bg-neutral-800 transition-all border border-white/10 active:scale-95 cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+
           <div className="bg-[#222] rounded-full px-3 py-1.5 flex items-center gap-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${index === currentIndex ? "bg-white scale-125" : "bg-[#555] hover:bg-neutral-300"
-                  }`}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  index === currentIndex ? "bg-white scale-125" : "bg-[#555] hover:bg-neutral-300"
+                }`}
               />
             ))}
           </div>
+
+          <button
+            onClick={handleNext}
+            aria-label="Next testimonial"
+            className="md:hidden w-8 h-8 rounded-full bg-[#1c1c1c] flex items-center justify-center text-white hover:bg-neutral-800 transition-all border border-white/10 active:scale-95 cursor-pointer"
+          >
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </section>

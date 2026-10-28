@@ -3,13 +3,15 @@
 import React, { useEffect } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 interface MobileMenuOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  onContactClick?: () => void;
 }
 
-export default function MobileMenuOverlay({ isOpen, onClose }: MobileMenuOverlayProps) {
+export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: MobileMenuOverlayProps) {
   // Prevent scrolling when the menu is open
   useEffect(() => {
     if (isOpen) {
@@ -70,40 +72,77 @@ export default function MobileMenuOverlay({ isOpen, onClose }: MobileMenuOverlay
         />
       </div>
 
-      {/* --- Menu Links --- */}
+      {/* --- Menu Links & Action --- */}
       <motion.div
-        className="absolute inset-0 flex items-center justify-center z-10"
+        className="absolute inset-0 flex flex-col items-center justify-between py-24 px-8 z-10"
         initial="closed"
         animate={isOpen ? "open" : "closed"}
       >
-        <motion.ul
-          className="flex flex-col items-center justify-center gap-8 w-full px-8"
+        <div className="w-full flex-1 flex flex-col items-center justify-center">
+          <motion.ul
+            className="flex flex-col items-center justify-center gap-6 w-full"
+            variants={{
+              closed: {
+                y: 20,
+                opacity: 0,
+                transition: { duration: 0.4, ease: "easeIn" },
+              },
+              open: {
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.6, ease: "easeOut", delay: 0.3 },
+              },
+            }}
+          >
+            {["Home", "Services", "Work", "Studio", "Insights"].map((item) => (
+              <motion.li key={item} className="overflow-hidden">
+                <Link
+                  href={item === "Home" ? "/" : `/#${item.toLowerCase()}`}
+                  onClick={onClose}
+                  className="text-3xl sm:text-4xl font-inter-tight font-medium tracking-tight text-white hover:text-white/60 transition-colors inline-block relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1.5 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300 ease-out" />
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+
+        {/* Mobile Drawer Bottom CTA Section */}
+        <motion.div
           variants={{
             closed: {
               y: 20,
               opacity: 0,
-              transition: { duration: 0.4, ease: "easeIn" },
+              transition: { duration: 0.3, ease: "easeIn" },
             },
             open: {
               y: 0,
               opacity: 1,
-              transition: { duration: 0.6, ease: "easeOut", delay: 0.4 },
+              transition: { duration: 0.5, ease: "easeOut", delay: 0.45 },
             },
           }}
+          className="w-full max-w-xs flex flex-col items-center gap-4 pt-6 border-t border-white/10 shrink-0"
         >
-          {["Home", "Services", "Work", "Studio", "Insights"].map((item) => (
-            <motion.li key={item} className="overflow-hidden">
-              <Link
-                href={item === "Home" ? "/" : `/#${item.toLowerCase()}`}
-                onClick={onClose}
-                className="text-4xl md:text-5xl font-inter-tight font-medium tracking-tight text-white hover:text-white/60 transition-colors inline-block relative group"
-              >
-                {item}
-                <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-white group-hover:w-full transition-all duration-300 ease-out" />
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ul>
+          <button
+            onClick={() => {
+              onClose();
+              if (onContactClick) onContactClick();
+            }}
+            className="w-full py-3.5 px-6 rounded-full bg-white text-black font-inter-tight font-semibold text-sm hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-pointer"
+          >
+            <span>Get in touch</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+
+          <div className="flex flex-col items-center text-xs text-neutral-400 gap-1 text-center">
+            <a href="mailto:contact@mazevisual.com" className="hover:text-white transition-colors">
+              contact@mazevisual.com
+            </a>
+            <span className="text-neutral-500 text-[11px]">PNQ, IND &bull; Global Studio</span>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );
