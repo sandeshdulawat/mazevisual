@@ -64,11 +64,13 @@ export const metadata: Metadata = {
   publisher: "Maze Visual",
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/mazevisualfavicon.avif", type: "image/avif" },
       { url: "/mazevisuallogo.png", type: "image/png" },
     ],
-    shortcut: "/mazevisualfavicon.avif",
+    shortcut: "/favicon.ico",
     apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
       { url: "/mazevisuallogo.png", sizes: "180x180", type: "image/png" },
     ],
   },
@@ -157,8 +159,10 @@ export default function RootLayout({
       className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} ${cormorant.variable} ${interTight.variable} ${kleinCondensed.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/mazevisualfavicon.avif" type="image/avif" />
-        <link rel="apple-touch-icon" href="/mazevisuallogo.png" />
+        <link rel="icon" href="/mazevisuallogo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
