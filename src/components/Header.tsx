@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import AnimatedMenuTrigger from "./AnimatedMenuTrigger";
 import MobileMenuOverlay from "./MobileMenuOverlay";
 
@@ -65,9 +66,23 @@ export default function Header({ onContactClick }: HeaderProps) {
             }`}
         >
           {/* Left Column: Logo */}
-          <div className="flex items-center shrink-0 w-auto md:w-[140px]">
-            <Link href="/" onClick={(e) => handleNavClick(e, "/")}>
-              <span className="text-xl md:text-2xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap pl-2 md:pl-4 hover:text-white/80 transition-colors cursor-pointer">
+          <div className="flex items-center shrink-0 w-auto md:w-[175px]">
+            <Link
+              href="/"
+              onClick={(e) => handleNavClick(e, "/")}
+              className="flex items-center gap-2 pl-1.5 md:pl-3 group select-none cursor-pointer"
+            >
+              <div className="relative w-6 h-6 sm:w-7 sm:h-7 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/mazevisuallogo.png"
+                  alt="Maze Visual Logo"
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
+              <span className="text-lg md:text-xl font-inter-tight italic font-medium text-white tracking-tight select-none whitespace-nowrap group-hover:text-white/80 transition-colors">
                 Maze visual.
               </span>
             </Link>
@@ -93,7 +108,7 @@ export default function Header({ onContactClick }: HeaderProps) {
           </nav>
 
           {/* Right Column: CTA Button / Mobile Menu */}
-          <div className="flex items-center justify-end shrink-0 w-auto md:w-[140px]">
+          <div className="flex items-center justify-end shrink-0 w-auto md:w-[175px]">
             <button
               onClick={onContactClick}
               className="hidden md:block rounded-lg bg-white/95 text-black px-4 py-1.5 text-[13px] font-inter-tight font-medium hover:bg-white transition-all duration-300 active:scale-95 whitespace-nowrap shadow-sm cursor-pointer"

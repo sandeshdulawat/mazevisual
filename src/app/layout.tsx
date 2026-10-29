@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Bebas_Neue, Plus_Jakarta_Sans, Cormorant_Garamond, Inter_Tight } from "next/font/google";
 import localFont from "next/font/local";
+import SmoothScrolling from "@/components/SmoothScrolling";
 import "./globals.css";
 
 const kleinCondensed = localFont({
@@ -41,11 +42,108 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Maze Visual — One Studio. Endless Possibilities.",
+  metadataBase: new URL("https://www.mazevisual.com"),
+  title: {
+    default: "Maze Visual — One Studio. Endless Possibilities.",
+    template: "%s | Maze Visual",
+  },
   description: "Maze Visual is a premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
+  keywords: [
+    "Maze Visual",
+    "creative studio",
+    "branding agency",
+    "architecture studio",
+    "interior design",
+    "3D visualization",
+    "digital experiences",
+    "web architecture",
+    "Pune design studio",
+  ],
+  authors: [{ name: "Maze Visual", url: "https://www.mazevisual.com" }],
+  creator: "Maze Visual",
+  publisher: "Maze Visual",
+  icons: {
+    icon: [
+      { url: "/mazevisualfavicon.avif", type: "image/avif" },
+      { url: "/mazevisuallogo.png", type: "image/png" },
+    ],
+    shortcut: "/mazevisualfavicon.avif",
+    apple: [
+      { url: "/mazevisuallogo.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.webmanifest",
+  openGraph: {
+    title: "Maze Visual — One Studio. Endless Possibilities.",
+    description: "Premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
+    url: "https://www.mazevisual.com",
+    siteName: "Maze Visual",
+    images: [
+      {
+        url: "/mazevisuallogo.png",
+        width: 1200,
+        height: 1200,
+        alt: "Maze Visual Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Maze Visual — One Studio. Endless Possibilities.",
+    description: "Premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
+    images: ["/mazevisuallogo.png"],
+    creator: "@mazevisual",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
-import SmoothScrolling from "@/components/SmoothScrolling";
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.mazevisual.com/#organization",
+      "name": "Maze Visual",
+      "url": "https://www.mazevisual.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.mazevisual.com/mazevisuallogo.png",
+        "contentUrl": "https://www.mazevisual.com/mazevisuallogo.png",
+        "caption": "Maze Visual Logo",
+      },
+      "image": "https://www.mazevisual.com/mazevisuallogo.png",
+      "description": "Premier creative studio specializing in Branding, Architecture, Digital, Visualization, and Interior Design.",
+      "email": "sdulawat.work@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pune",
+        "addressRegion": "Maharashtra",
+        "addressCountry": "IN",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mazevisual.com/#website",
+      "url": "https://www.mazevisual.com",
+      "name": "Maze Visual",
+      "publisher": {
+        "@id": "https://www.mazevisual.com/#organization",
+      },
+    },
+  ],
+};
 
 export default function RootLayout({
   children,
@@ -58,6 +156,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${playfair.variable} ${bebas.variable} ${jakarta.variable} ${cormorant.variable} ${interTight.variable} ${kleinCondensed.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" href="/mazevisualfavicon.avif" type="image/avif" />
+        <link rel="apple-touch-icon" href="/mazevisuallogo.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-black selection:text-white">
         <SmoothScrolling>
           {children}

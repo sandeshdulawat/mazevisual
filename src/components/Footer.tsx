@@ -9,9 +9,7 @@ export default function Footer() {
       <div className="max-w-[1300px] mx-auto px-[10px] py-10 md:py-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-12 border-b border-neutral-800">
           <div>
-            <div className="filter invert">
-              <Logo />
-            </div>
+            <Logo />
             <p className="text-xs text-neutral-400 mt-2 max-w-sm">
               One Studio. Endless Possibilities. Shaping digital, architectural, and visual landmarks worldwide.
             </p>

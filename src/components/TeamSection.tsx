@@ -29,7 +29,7 @@ export default function TeamSection() {
         >
           {/* Image Container with Red Circle */}
           <div className="w-24 h-24 rounded-full bg-[#E53935] mb-5 overflow-hidden flex items-center justify-center shrink-0">
-            <img 
+            <img
               src="https://sandeshdulawat.netlify.app/avatar.webp"
               alt="Sandesh Dulawat"
               className="w-full h-full object-cover"
@@ -75,8 +75,8 @@ export default function TeamSection() {
         >
           {/* Image Container with Red Circle */}
           <div className="w-24 h-24 rounded-full bg-[#E53935] mb-5 overflow-hidden flex items-center justify-center shrink-0">
-            <img 
-              src="/images/kritesh.jpg" 
+            <img
+              src="/images/kritesh.jpg"
               alt="Kritesh Dulawat"
               className="w-full h-full object-cover"
             />

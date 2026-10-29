@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, X } from "lucide-react";
 
 interface MobileMenuOverlayProps {
@@ -113,8 +114,22 @@ export default function MobileMenuOverlay({ isOpen, onClose, onContactClick }: M
           },
         }}
       >
-        {/* Top Header Bar with Cross (X) Close Button */}
-        <div className="w-full flex items-center justify-end z-20">
+        {/* Top Header Bar with Logo and Cross (X) Close Button */}
+        <div className="w-full flex items-center justify-between z-20">
+          <div className="flex items-center gap-2">
+            <div className="relative w-6 h-6 sm:w-7 sm:h-7 shrink-0">
+              <Image
+                src="/mazevisuallogo.png"
+                alt="Maze Visual Logo"
+                width={28}
+                height={28}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <span className="text-lg font-inter-tight italic font-medium text-white tracking-tight">
+              Maze visual.
+            </span>
+          </div>
           <button
             onClick={onClose}
             aria-label="Close menu"
