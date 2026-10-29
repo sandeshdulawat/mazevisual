@@ -60,12 +60,11 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="w-full bg-black py-32 md:py32 overflow-hidden relative">
+    <section className="w-full bg-black py-12 md:py-28 overflow-hidden relative">
       <div className="w-full mx-auto px-4 flex flex-col items-center">
 
         {/* Header */}
-        {/* Header - Hidden to match exact screenshot which only shows the carousel itself, but I'll leave it in case it's just scrolled down. Wait, the screenshot doesn't show the header, just the carousel and pagination. I'll keep the header. */}
-        <div className="text-center mb-10 md:mb-14">
+        <div className="text-center mb-6 md:mb-14">
           <h2 className="text-3xl md:text-4xl lg:text-[48px] font-medium tracking-tight text-white mb-3 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             Hear <span className="font-serif-custom italic text-white/90">from</span> our partners
           </h2>

@@ -8,9 +8,9 @@ import { servicesData } from "@/data/services";
 
 export default function ServicesList() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-16 md:py-20 text-white font-sans relative z-20">
+    <div className="w-full max-w-7xl mx-auto px-4 py-10 md:py-20 text-white font-sans relative z-20">
       {/* Header Section */}
-      <div className="flex flex-col items-center justify-center text-center mb-12 md:mb-24">
+      <div className="flex flex-col items-center justify-center text-center mb-8 md:mb-20">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-3 md:mb-4">
           <span className="font-serif-custom italic text-white/90 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">With</span>{" "}
           <span className="font-serif-custom text-white/90 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">our services</span>

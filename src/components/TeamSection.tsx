@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 
 export default function TeamSection() {
   return (
-    <section className="w-full bg-black py-24 md:py-32 flex flex-col items-center overflow-hidden">
+    <section className="w-full bg-black py-12 md:py-28 flex flex-col items-center overflow-hidden">
       {/* Header */}
-      <div className="text-center mb-16 md:mb-24 px-4">
+      <div className="text-center mb-8 md:mb-20 px-4">
         <h2 className="text-4xl md:text-5xl lg:text-[56px] font-medium tracking-tight text-white mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
           <span className="font-serif-custom italic">Get</span> <span className="font-serif-custom">in touch with us</span>
         </h2>

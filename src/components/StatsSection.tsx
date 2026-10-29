@@ -23,7 +23,7 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="w-full bg-black flex justify-center">
+    <section className="w-full bg-black flex justify-center py-4 md:py-8">
       <div className="w-full max-w-5xl px-6 md:px-8 flex flex-col">
         {stats.map((stat, index) => (
           <motion.div
@@ -32,11 +32,11 @@ export default function StatsSection() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             key={index}
-            className={`flex flex-col md:flex-row items-start md:items-center py-12 md:py-16 ${index !== stats.length - 1 ? "border-b border-white/[0.08]" : ""
+            className={`flex flex-col md:flex-row items-start md:items-center py-8 md:py-16 ${index !== stats.length - 1 ? "border-b border-white/[0.08]" : ""
               }`}
           >
             {/* Number Column */}
-            <div className="w-full md:w-[45%] flex justify-start md:justify-end md:pr-16 shrink-0 mb-6 md:mb-0">
+            <div className="w-full md:w-[45%] flex justify-start md:justify-end md:pr-16 shrink-0 mb-3 md:mb-0">
               <span className="text-[64px] md:text-[85px] lg:text-[95px] font-serif-custom text-[#e0e0e0] leading-none tracking-tight">
                 {stat.number}
               </span>

@@ -41,7 +41,7 @@ const marqueeProjects = [...featuredProjects, ...featuredProjects];
 
 export default function FeaturedWork() {
   return (
-    <section className="w-full bg-black text-[#f4f4f4] py-20 md:py-32 overflow-hidden flex flex-col items-center">
+    <section className="w-full bg-black text-[#f4f4f4] py-12 md:py-28 overflow-hidden flex flex-col items-center">
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes marquee {
@@ -60,14 +60,14 @@ export default function FeaturedWork() {
       `}} />
 
       {/* Header Container */}
-      <div className="w-full max-w-[1200px] px-4 md:px-8 mx-auto mb-16 md:mb-20">
+      <div className="w-full max-w-[1200px] px-4 md:px-8 mx-auto mb-8 md:mb-20">
 
         {/* Main Title & Description */}
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-5xl md:text-7xl lg:text-[80px] font-medium tracking-tight text-white mb-6">
+        <div className="mb-6 md:mb-16">
+          <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-[80px] font-medium tracking-tight text-white mb-3 md:mb-6">
             <span className="font-serif-custom italic">Featured</span> <span className="font-serif-custom">work</span>
           </h2>
-          <p className="text-neutral-400 text-lg md:text-xl max-w-lg leading-relaxed font-sans font-medium">
+          <p className="text-neutral-400 text-sm sm:text-base md:text-xl max-w-lg leading-relaxed font-sans font-medium">
             A curated selection of digital experiences, products and identities crafted for ambitious brands.
           </p>
         </div>

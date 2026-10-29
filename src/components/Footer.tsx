@@ -5,8 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-neutral-950 text-white mt-16">
-      <div className="max-w-[1300px] mx-auto px-[10px] py-16">
+    <footer className="w-full bg-neutral-950 text-white mt-8 md:mt-16">
+      <div className="max-w-[1300px] mx-auto px-[10px] py-10 md:py-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-12 border-b border-neutral-800">
           <div>
             <div className="filter invert">
